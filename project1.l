@@ -2,7 +2,7 @@ ASSIGNMENT =
 NEWLINE \n
 INT int
 CHAR char
-BOOLEAN boolean
+BOOLEAN boolean | bool
 FLOAT float
 IS_EQUAL ==
 MINUS -
@@ -41,7 +41,14 @@ FUNCTION function
 
 
 %%
-
+= 	printf("ASSIGNMENT");
+\n	printf("NEWLINE");
+int printf("INT");
+char printf("CHAR");
+boolean|bool printf("BOOLEAN");
+floar printf("FLOAT");
+== printf("IS_EQUAL");
+for printf("FOR");
 
 %%
 int yywrap(void) {
