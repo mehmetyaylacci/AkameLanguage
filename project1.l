@@ -43,18 +43,18 @@ FUNCTION function
 %%
 = 		  	 printf("ASSIGNMENT");
 \n			 printf("NEWLINE");
-int 		 printf("INT");
-char		 printf("CHAR");
-boolean|bool printf("BOOLEAN");
-float 	     printf("FLOAT");
+int 			 printf("INT");
+char			 printf("CHAR");
+boolean|bool 		 printf("BOOLEAN");
+float 	    		 printf("FLOAT");
 == 			 printf("IS_EQUAL");
 - 			 printf("MINUS");
 + 			 printf("PLUS");
 if 			 printf("IF");
-else 		 printf("ELSE");
-elif 		 printf("ELSEIF");
+else 			 printf("ELSE");
+elif 			 printf("ELSEIF");
 # 			 printf("COMMENT");
-for 		 printf("FOR");
+for 			 printf("FOR");
 
 %%
 int yywrap(void) {
