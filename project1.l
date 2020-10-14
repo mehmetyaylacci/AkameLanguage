@@ -26,7 +26,7 @@ GREATER >
 LESS <
 GTE >=
 LTE <=
-NOTEQUAL !=
+NOT_EQUAL !=
 SEMICOLON \;
 DOT \.
 COMMA \,
@@ -41,20 +41,27 @@ FUNCTION function
 
 
 %%
-= 		  	 printf("ASSIGNMENT");
-\n			 printf("NEWLINE");
-int 			 printf("INT");
-char			 printf("CHAR");
+= 		  			 printf("ASSIGNMENT");
+\n					 printf("NEWLINE");
+int 				 printf("INT");
+char				 printf("CHAR");
 boolean|bool 		 printf("BOOLEAN");
 float 	    		 printf("FLOAT");
-== 			 printf("IS_EQUAL");
-- 			 printf("MINUS");
-+ 			 printf("PLUS");
-if 			 printf("IF");
-else 			 printf("ELSE");
-elif 			 printf("ELSEIF");
-# 			 printf("COMMENT");
-for 			 printf("FOR");
+== 					 printf("IS_EQUAL");
+- 					 printf("MINUS");
++ 					 printf("PLUS");
+if 					 printf("IF");
+else 				 printf("ELSE");
+elif 				 printf("ELSEIF");
+# 					 printf("COMMENT");
+for 				 printf("FOR");
+do					 printf("DO");
+while				 printf("WHILE");
+!=					 printf("NOT_EQUAL");
+return				 printf("RETURN");
+>					 printf("GREATER");
+<					 printf("LESS");
+
 
 %%
 int yywrap(void) {
