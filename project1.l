@@ -61,6 +61,20 @@ while				 printf("WHILE");
 return				 printf("RETURN");
 >					 printf("GREATER");
 <					 printf("LESS");
+>=					 printf("GTE");
+<=					 printf("LTE");
+!=					 printf("NOT_EQUAL");
+\:					 printf("SEMICOLON");
+\.					 printf("DOT");
+\,					 printf("COMMA");
+\:					 printf("COLON");
+\*					 printf("MULT");
+\/					 printf("DIV");
+\|\|				 printf("OR");
+\&\&				 printf("AND");
+return				 printf("RETURN");
+print				 printf("PRINT");
+function			 printf("FUNCTION");
 
 
 %%
