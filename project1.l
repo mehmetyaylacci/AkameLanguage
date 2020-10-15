@@ -1,9 +1,6 @@
 ASSIGNMENT =
 NEWLINE \n
-INT int
-CHAR char
-BOOLEAN boolean | bool
-FLOAT float
+VAR var
 IS_EQUAL ==
 MINUS -
 PLUS +
@@ -43,10 +40,7 @@ FUNCTION function
 %%
 = 		  			 printf("ASSIGNMENT");
 \n					 printf("NEWLINE");
-int 				 printf("INT");
-char				 printf("CHAR");
-boolean|bool 		 printf("BOOLEAN");
-float 	    		 printf("FLOAT");
+var					 printf("VAR");
 == 					 printf("IS_EQUAL");
 - 					 printf("MINUS");
 + 					 printf("PLUS");
