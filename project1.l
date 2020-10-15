@@ -57,7 +57,6 @@ return				 printf("RETURN");
 <					 printf("LESS");
 >=					 printf("GTE");
 <=					 printf("LTE");
-!=					 printf("NOT_EQUAL");
 \:					 printf("SEMICOLON");
 \.					 printf("DOT");
 \,					 printf("COMMA");
