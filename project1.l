@@ -1,12 +1,11 @@
 ASSIGNMENT =
 NEWLINE \n
-VAR var
 IS_EQUAL ==
 MINUS -
 PLUS +
 IF if
 ELSE else
-ELSEIF elif
+ELSE_IF elif
 COMMENT {HASHTAG}([^\n])*\n
 HASHTAG #
 DIGIT [0-9]
@@ -36,38 +35,43 @@ RETURN return
 PRINT print
 FUNCTION function
 
+TRUE true
+FALSE false
+BOOLEAN TRUE|FALSE
+LOWERCASE [a-z]
+VARIABLE {LOWERCASE}{NUMERIC}* ???
+
 
 %%
-= 		  			 printf("ASSIGNMENT");
-\n					 printf("NEWLINE");
-var					 printf("VAR");
-== 					 printf("IS_EQUAL");
-- 					 printf("MINUS");
-+ 					 printf("PLUS");
-if 					 printf("IF");
-else 				 printf("ELSE");
-elif 				 printf("ELSEIF");
-# 					 printf("COMMENT");
-for 				 printf("FOR");
-do					 printf("DO");
-while				 printf("WHILE");
-!=					 printf("NOT_EQUAL");
-return				 printf("RETURN");
->					 printf("GREATER");
-<					 printf("LESS");
->=					 printf("GTE");
-<=					 printf("LTE");
-\:					 printf("SEMICOLON");
-\.					 printf("DOT");
-\,					 printf("COMMA");
-\:					 printf("COLON");
-\*					 printf("MULT");
-\/					 printf("DIV");
-\|\|				 printf("OR");
-\&\&				 printf("AND");
-return				 printf("RETURN");
-print				 printf("PRINT");
-function			 printf("FUNCTION");
+{=} 		  			 printf("ASSIGNMENT");
+{\n}					 printf("NEWLINE");
+{VARIABLE}					 printf("VARIABLE");
+{==} 					 printf("IS_EQUAL");
+{-} 					 printf("MINUS");
+{+}					 printf("PLUS");
+{IF} 					 printf("IF");
+{ELSE} 				 printf("ELSE");
+{ELIF} 				 printf("ELSE_IF");
+{#} 					 printf("COMMENT");
+{FOR} 				 printf("FOR");
+{DO}					 printf("DO");
+{WHILE}				 printf("WHILE");
+{!=}					 printf("NOT_EQUAL");
+{RETURN}				 printf("RETURN");
+{>}					 printf("GREATER");
+{<}					 printf("LESS");
+{>=}					 printf("GTE");
+{<=}					 printf("LTE");
+{\:}					 printf("SEMICOLON");
+{\.}					 printf("DOT");
+{\,}					 printf("COMMA");
+{\:}					 printf("COLON");
+{\*}					 printf("MULT");
+{\/}					 printf("DIV");
+{\|\|}				 printf("OR");
+{\&\&}				 printf("AND");
+{PRINT}				 printf("PRINT");
+{FUNCTION}			 printf("FUNCTION");
 
 
 %%
