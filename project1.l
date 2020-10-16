@@ -9,8 +9,6 @@ ELSE_IF elif
 COMMENT {HASHTAG}([^\n])*\n
 HASHTAG #
 DIGIT [0-9]
-LOWERCASE [a-z]
-UPPERCASE [A-Z]
 LPAR \(
 RPAR \)
 LBRACKET \{
@@ -33,45 +31,58 @@ OR \|\|
 AND \&\&
 RETURN return
 PRINT print
-FUNCTION function
 
+FUNCTION function
+LOWERCASE [a-z]
+UPPERCASE [A-Z]
 TRUE true
 FALSE false
-BOOLEAN TRUE|FALSE
+BOOLEAN {TRUE}|{FALSE}
 LOWERCASE [a-z]
-VARIABLE {LOWERCASE}{NUMERIC}* ???
+ALPHANUMERIC ({UPPERCASE}|{LOWERCASE}|{DIGIT})
+VARIABLE {LOWERCASE}{ALPHANUMERIC}*
+INTEGER [-+]?{DIGIT}+
+FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
 
 
 %%
 {=} 		  			 printf("ASSIGNMENT");
 {\n}					 printf("NEWLINE");
-{VARIABLE}					 printf("VARIABLE");
 {==} 					 printf("IS_EQUAL");
 {-} 					 printf("MINUS");
 {+}					 printf("PLUS");
 {IF} 					 printf("IF");
 {ELSE} 				 printf("ELSE");
 {ELIF} 				 printf("ELSE_IF");
-{#} 					 printf("COMMENT");
+{COMMENT} 					 printf("COMMENT");
+{#}					printf("HASHTAG")
+{DIGIT}				printf("DIGIT")
+{LPAR}					printf("LPAR")
+{RPAR}					printf("RPAR")
+{LBRACKET}					printf("LBRACKET")
+{RBRACKET}					printf("RBRACKET")
 {FOR} 				 printf("FOR");
 {DO}					 printf("DO");
 {WHILE}				 printf("WHILE");
-{!=}					 printf("NOT_EQUAL");
+{GREATER}					 printf("GREATER");
+{LESS}					 printf("LESS");
+{GTE}					 printf("GTE");
+{LTE}					 printf("LTE");
+{NOT_EQUAL}					 printf("NOT_EQUAL");
+{SEMICOLON}					printf("SEMICOLON")
+{DOT}					 printf("DOT");
+{COMMA}					 printf("COMMA");
+{COLON}					 printf("COLON");
+{MULT}					 printf("MULT");
+{DIV}					 printf("DIV");
+{OR}				 printf("OR");
+{AND}				 printf("AND");
 {RETURN}				 printf("RETURN");
-{>}					 printf("GREATER");
-{<}					 printf("LESS");
-{>=}					 printf("GTE");
-{<=}					 printf("LTE");
-{\:}					 printf("SEMICOLON");
-{\.}					 printf("DOT");
-{\,}					 printf("COMMA");
-{\:}					 printf("COLON");
-{\*}					 printf("MULT");
-{\/}					 printf("DIV");
-{\|\|}				 printf("OR");
-{\&\&}				 printf("AND");
 {PRINT}				 printf("PRINT");
 {FUNCTION}			 printf("FUNCTION");
+
+{VARIABLE}					printf("VARIABLE");
+
 
 
 %%
