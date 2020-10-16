@@ -38,7 +38,6 @@ UPPERCASE [A-Z]
 TRUE true
 FALSE false
 BOOLEAN {TRUE}|{FALSE}
-LOWERCASE [a-z]
 ALPHANUMERIC ({UPPERCASE}|{LOWERCASE}|{DIGIT})
 VARIABLE {LOWERCASE}{ALPHANUMERIC}*
 INTEGER [-+]?{DIGIT}+
@@ -46,46 +45,45 @@ FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
 
 
 %%
-{=} 		  			 printf("ASSIGNMENT");
-{\n}					 printf("NEWLINE");
-{==} 					 printf("IS_EQUAL");
-{-} 					 printf("MINUS");
-{+}					 printf("PLUS");
-{IF} 					 printf("IF");
-{ELSE} 				 printf("ELSE");
-{ELIF} 				 printf("ELSE_IF");
-{COMMENT} 					 printf("COMMENT");
-{#}					printf("HASHTAG")
-{DIGIT}				printf("DIGIT")
-{LPAR}					printf("LPAR")
-{RPAR}					printf("RPAR")
-{LBRACKET}					printf("LBRACKET")
-{RBRACKET}					printf("RBRACKET")
-{FOR} 				 printf("FOR");
-{DO}					 printf("DO");
-{WHILE}				 printf("WHILE");
-{GREATER}					 printf("GREATER");
-{LESS}					 printf("LESS");
-{GTE}					 printf("GTE");
-{LTE}					 printf("LTE");
-{NOT_EQUAL}					 printf("NOT_EQUAL");
-{SEMICOLON}					printf("SEMICOLON")
-{DOT}					 printf("DOT");
-{COMMA}					 printf("COMMA");
-{COLON}					 printf("COLON");
-{MULT}					 printf("MULT");
-{DIV}					 printf("DIV");
-{OR}				 printf("OR");
-{AND}				 printf("AND");
-{RETURN}				 printf("RETURN");
-{PRINT}				 printf("PRINT");
-{FUNCTION}			 printf("FUNCTION");
+{ASSIGNMENT} 		  	 	printf("ASSIGNMENT");
+{NEWLINE}					printf("NEWLINE");
+{IS_EQUAL} 					printf("IS_EQUAL");
+{MINUS} 					printf("MINUS");
+{PLUS}						printf("PLUS");
+{IF} 						printf("IF");
+{ELSE} 						printf("ELSE");
+{ELSE_IF}	 				printf("ELSE_IF");
+{COMMENT} 					printf("COMMENT");
+{HASHTAG}					printf("HASHTAG");
+{DIGIT} 					printf("DIGIT");
+{LPAR}						printf("LPAR");
+{RPAR}						printf("RPAR");
+{LBRACKET}		 	 		printf("LBRACKET");
+{RBRACKET}				   	printf("RBRACKET");
+{FOR} 				 		printf("FOR");
+{DO}					 	printf("DO");
+{WHILE}				 	 	printf("WHILE");
+{GREATER}					printf("GREATER");
+{LESS}					 	printf("LESS");
+{GTE}					 	printf("GTE");
+{LTE}					 	printf("LTE");
+{NOT_EQUAL}					printf("NOT_EQUAL");
+{SEMICOLON}					printf("SEMICOLON");
+{DOT}					 	printf("DOT");
+{COMMA}					 	printf("COMMA");
+{COLON}					 	printf("COLON");
+{MULT}					 	printf("MULT");
+{DIV}					 	printf("DIV");
+{OR}				 		printf("OR");
+{AND}				 		printf("AND");
+{RETURN}				 	printf("RETURN");
+{PRINT}				 		printf("PRINT");
+{FUNCTION}					printf("FUNCTION");
 
 {VARIABLE}					printf("VARIABLE");
 
-
-
 %%
+
 int yywrap(void) {
 	return 1;
 }
