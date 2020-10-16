@@ -1,8 +1,8 @@
 ASSIGNMENT =
 NEWLINE \n
 IS_EQUAL ==
-MINUS -
-PLUS +
+MINUS \-
+PLUS \+
 IF if
 ELSE else
 ELSE_IF elif
@@ -43,6 +43,8 @@ VARIABLE {LOWERCASE}{ALPHANUMERIC}*
 INTEGER [-+]?{DIGIT}+
 FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
 
+STRING \"[^\"]*\"
+
 
 %%
 {ASSIGNMENT} 		  	 	printf("ASSIGNMENT ");
@@ -81,6 +83,7 @@ FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
 {FUNCTION}					printf("FUNCTION ");
 
 {VARIABLE}					printf("VARIABLE ");
+{STRING}					printf("STRING ");
 
 %%
 
