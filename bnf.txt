@@ -1,0 +1,73 @@
+
+Grammar G (V, T, P, S)
+V = {<stmt>, <assignment_stmt>, <if_stmt>, <for_stmt>, <while_stmt>, <decl_stmt>, ... }
+T = {";", "int", "float", "char",  "," , "(", ")", "if", "else",  ... }
+P = { "<ident-list> ::= <ident> | <ident> , <ident-list>", ... }
+S start variable, S is a member of V, <program>
+
+
+<program> ::= <stmt-list>
+
+<stmt-list> ::= <stmt>
+              | <stmt-list> <stmt>
+
+<stmt> ::= <assignment_stmt>
+         | <if_stmt>
+         | <while_stmt>
+         | <for_stmt>
+         | <decl_stmt>
+         ...
+
+<assignment_stmt> ::= <ident> = <expr> ;
+
+
+<expr> ::= <expr> + <term>
+        | <expr> - <term>
+        | <term>
+
+<term> ::= <term> * <term>
+        | <term> / <factor>
+        | <factor>
+
+<factor> ::= <idc> ** <factor>  //** is exponentiation
+          |  <idc>
+
+<idc> ::= <id>
+        | <const>
+        | <expr>
+
+
+<if_stmt> ::= if ( <logic_expr> ) <stmt> ;
+            | if ( <logic_expr> ) <stmt> else <stmt>;
+
+
+<for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>;
+
+<while_stmt> ::= while ( <expr> ) <stmt-list>;
+
+
+...
+
+<decl-stmt> ::= <type-ident> <ident-list> ;
+
+<type-ident> ::= int
+               | float
+               | char
+
+<ident-list> ::= <ident>
+               | <ident> , <ident-list>
+
+
+
+
+
+
+//Regular Expression for Lexemes:
+
+<char> : a | b | c | d ... | A | B | C ... | _ | $
+
+<digit>: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+<ident> : <char>+(<char>|<digit>)*
+
+<int_const>: (+|-)?<digit>+
