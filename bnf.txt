@@ -11,10 +11,11 @@ S start variable, S is a member of V, <program>
 
 <digit>: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-<ident> : <char>+(<char>|<digit>)*
+<sign>: + | -
 
-<int_const>: (+|-)?<digit>+
+<ident> : <char> | <ident> <char> | <ident> <digit>
 
+<int_const>: <sign> <digit> | <int_const> <digit>
 
 <program> ::= <stmt-list>
 
@@ -27,8 +28,7 @@ S start variable, S is a member of V, <program>
          | <for_stmt>
          | <decl_stmt>
          | <func_def_stmt>
-         ...
-         
+         ...    
          
 <type-ident> ::= int
                | float
@@ -44,11 +44,9 @@ S start variable, S is a member of V, <program>
 
 <assignment_stmt> ::= <ident> = <expr> ;
 
+<operator> ::= + | - | * | /
 
-<expr> ::= <expr> + <term>
-        | <expr> && <expr>
-        | <expr> || <expr>
-        | <expr> - <term>
+<expr> ::= <expr> <operator> <expr>
         | <term>
 
 <term> ::= <term> * <term>
@@ -62,10 +60,8 @@ S start variable, S is a member of V, <program>
         | <const>
         | <expr>
 
-
 <if_stmt> ::= if ( <logic_expr> ) <stmt> ;
             | if ( <logic_expr> ) <stmt> else <stmt>;
-
 
 <for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>;
 
