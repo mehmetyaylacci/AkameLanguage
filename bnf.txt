@@ -1,8 +1,8 @@
 
 Grammar G (V, T, P, S)
-V = {<stmt>, <assignment_stmt>, <if_stmt>, <for_stmt>, <while_stmt>, <decl_stmt>, ... }
-T = {";", "int", "float", "char",  "," , "(", ")", "if", "else",  ... }
-P = { "<ident-list> ::= <ident> | <ident> , <ident-list>", ... }
+V(non-terminals) = {<stmt>, <assignment_stmt>, <if_stmt>, <for_stmt>, <while_stmt>, <decl_stmt>, ... }
+T(terminals) = {";", "int", "float", "char",  "," , "(", ")", "if", "else",  ... }
+P(productions) = { "<ident-list> ::= <ident> | <ident> , <ident-list>", ... }
 S start variable, S is a member of V, <program>
 
 //Regular Expression for Lexemes:

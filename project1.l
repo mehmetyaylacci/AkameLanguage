@@ -31,6 +31,7 @@ OR \|\|
 AND \&\&
 RETURN return
 PRINT print
+BUILTIN_FUNC readInclination()| readAlt() | readTemp() | readAccel() | toggleCamera() | takePic() | readTs() | connect()
 
 FUNCTION function
 LOWERCASE [a-z]
@@ -81,6 +82,7 @@ STRING \"[^\"]*\"
 {RETURN}				 	printf("RETURN ");
 {PRINT}				 		printf("PRINT ");
 {FUNCTION}					printf("FUNCTION ");
+{BUILTIN_FUNC}				printf("BUILTIN_FUNC");
 
 {VARIABLE}					printf("VARIABLE ");
 {STRING}					printf("STRING ");
