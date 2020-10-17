@@ -46,6 +46,8 @@ S start variable, S is a member of V, <program>
 
 
 <expr> ::= <expr> + <term>
+        | <expr> && <expr>
+        | <expr> || <expr>
         | <expr> - <term>
         | <term>
 
