@@ -48,7 +48,7 @@ STRING \"[^\"]*\"
 
 %%
 {ASSIGNMENT} 		  	 	printf("ASSIGNMENT ");
-{NEWLINE}					printf("NEWLINE ");
+{NEWLINE}					printf("\n ");
 {IS_EQUAL} 					printf("IS_EQUAL ");
 {MINUS} 					printf("MINUS ");
 {PLUS}						printf("PLUS ");
