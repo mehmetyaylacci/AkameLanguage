@@ -42,7 +42,7 @@ ALPHANUMERIC ({UPPERCASE}|{LOWERCASE}|{DIGIT})
 VARIABLE {LOWERCASE}{ALPHANUMERIC}*
 INTEGER [-+]?{DIGIT}+
 FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
-
+INPUT "input"
 STRING \"[^\"]*\"
 
 
@@ -84,6 +84,8 @@ STRING \"[^\"]*\"
 
 {VARIABLE}					printf("VARIABLE ");
 {STRING}					printf("STRING ");
+
+{INPUT}						printf("INPUT ");
 
 %%
 

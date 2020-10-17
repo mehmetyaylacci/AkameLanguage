@@ -17,6 +17,8 @@ S start variable, S is a member of V, <program>
 
 <int_const>: <sign> <digit> | <int_const> <digit>
 
+//end of lexemes
+
 <program> ::= <stmt-list>
 
 <stmt-list> ::= <stmt>
@@ -28,8 +30,8 @@ S start variable, S is a member of V, <program>
          | <for_stmt>
          | <decl_stmt>
          | <func_def_stmt>
-         ...    
-         
+         ...
+
 <type-ident> ::= int
                | float
                | char
@@ -37,10 +39,19 @@ S start variable, S is a member of V, <program>
 
 <ident-list> ::= <ident>
                | <ident> , <ident-list>
-                           
+
 <decl-stmt> ::= <type-ident> <ident-list> ;
 
 <func_def_stmt> ::= <type-ident> <ident> (<ident-list>) <stmt-list> //void func(float param) print("Example Function");
+
+<primitive_func> ::= <ident>.readInclination()
+                  |  <ident>.readAlt()
+                  |  <ident>.readTemp()
+                  |  <ident>.readAccel()
+                  |  <ident>.toggleCamera()
+                  |  <ident>.takePic()
+                  |  <ident>.readTs()
+                  |  <ident>.connect()
 
 <assignment_stmt> ::= <ident> = <expr> ;
 
@@ -69,9 +80,3 @@ S start variable, S is a member of V, <program>
 
 
 ...
-
-
-
-
-
-
