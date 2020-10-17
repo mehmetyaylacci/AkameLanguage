@@ -31,7 +31,14 @@ OR \|\|
 AND \&\&
 RETURN return
 PRINT print
-BUILTIN_FUNC readInclination()| readAlt() | readTemp() | readAccel() | toggleCamera() | takePic() | readTs() | connect()
+NOT :!
+BUILTIN_FUNC readInclination() | readAlt() | readTemp() | readAccel() | toggleCamera() | takePic() | readTs() | connect()
+
+INT_TYPE int
+FLOAT_TYPE float
+DOUBLE_TYPE double
+VOID void
+BOOLEAN_TYPE bool
 
 FUNCTION function
 LOWERCASE [a-z]
@@ -40,14 +47,24 @@ TRUE true
 FALSE false
 BOOLEAN {TRUE}|{FALSE}
 ALPHANUMERIC ({UPPERCASE}|{LOWERCASE}|{DIGIT})
-VARIABLE {LOWERCASE}{ALPHANUMERIC}*
+IDENTIFIER {LOWERCASE}{ALPHANUMERIC}*
 INTEGER [-+]?{DIGIT}+
 FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
-INPUT "input"
+INPUT input()
 STRING \"[^\"]*\"
 
 
+
+
 %%
+{NOT}						printf("NOT ");
+{INT_TYPE}					printf("INT_TYPE ");
+{FLOAT_TYPE}				printf("FLOAT_TYPE ");
+{DOUBLE_TYPE}				printf("DOUBLE_TYPE ");
+{VOID}						printf("VOID ");
+{BOOLEAN_TYPE}				printf("BOOLEAN_TYPE ");
+
+
 {ASSIGNMENT} 		  	 	printf("ASSIGNMENT ");
 {NEWLINE}					printf("\n ");
 {IS_EQUAL} 					printf("IS_EQUAL ");
@@ -58,7 +75,8 @@ STRING \"[^\"]*\"
 {ELSE_IF}	 				printf("ELSE_IF ");
 {COMMENT} 					printf("COMMENT ");
 {HASHTAG}					printf("HASHTAG ");
-{DIGIT} 					printf("DIGIT ");
+{INTEGER}					printf("INTEGER ");
+{FLOAT}						printf("FLOAT ");
 {LPAR}						printf("LPAR ");
 {RPAR}						printf("RPAR ");
 {LBRACKET}		 	 		printf("LBRACKET ");
@@ -82,12 +100,9 @@ STRING \"[^\"]*\"
 {RETURN}				 	printf("RETURN ");
 {PRINT}				 		printf("PRINT ");
 {FUNCTION}					printf("FUNCTION ");
-{BUILTIN_FUNC}				printf("BUILTIN_FUNC");
 
-{VARIABLE}					printf("VARIABLE ");
+{IDENTIFIER}				printf("IDENT ");
 {STRING}					printf("STRING ");
-
-{INPUT}						printf("INPUT ");
 
 %%
 

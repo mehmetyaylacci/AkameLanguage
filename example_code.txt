@@ -1,0 +1,48 @@
+#this is a comment
+
+for( int i = 0; i < 15; i++ ) {
+    double a = 5.2;
+    double b = 5.3;
+    bool x = true;
+    if( (a == b) && x ) {
+        print("a == b");
+    } elif {
+        return :!x;
+    }
+}
+
+
+while( true ) {
+    a.readInclination();
+    a.readTemp();
+}
+
+function sum(int a, int b) {
+    int c = a + b;
+    return c;
+}
+
+
+--OUTPUT--
+
+COMMENT
+ FOR LPAR  INT_TYPE  IDENT  ASSIGNMENT  INTEGER SEMICOLON  IDENT  LESS  INTEGER SEMICOLON  IDENT PLUS PLUS  RPAR  LBRACKET
+     DOUBLE_TYPE  IDENT  ASSIGNMENT  FLOAT SEMICOLON
+     DOUBLE_TYPE  IDENT  ASSIGNMENT  FLOAT SEMICOLON
+     BOOLEAN_TYPE  IDENT  ASSIGNMENT  IDENT SEMICOLON
+     IF LPAR  LPAR IDENT  IS_EQUAL  IDENT RPAR  AND  IDENT  RPAR  LBRACKET
+         PRINT LPAR STRING RPAR SEMICOLON
+     RBRACKET  ELSE_IF  LBRACKET
+         RETURN  NOT IDENT SEMICOLON
+     RBRACKET
+ RBRACKET
+
+
+ WHILE LPAR  IDENT  RPAR  LBRACKET
+     IDENT DOT IDENT LPAR RPAR SEMICOLON
+     IDENT DOT IDENT LPAR RPAR SEMICOLON
+ RBRACKET
+
+ FUNCTION  IDENT LPAR INT_TYPE  IDENT COMMA  INT_TYPE  IDENT RPAR  LBRACKET
+     INT_TYPE  IDENT  ASSIGNMENT  IDENT  PLUS  IDENT SEMICOLON
+     RETURN  IDENT SEMICOLON 
