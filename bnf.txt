@@ -5,6 +5,16 @@ T = {";", "int", "float", "char",  "," , "(", ")", "if", "else",  ... }
 P = { "<ident-list> ::= <ident> | <ident> , <ident-list>", ... }
 S start variable, S is a member of V, <program>
 
+//Regular Expression for Lexemes:
+
+<char> : a | b | c | d ... | A | B | C ... | _ | $
+
+<digit>: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+<ident> : <char>+(<char>|<digit>)*
+
+<int_const>: (+|-)?<digit>+
+
 
 <program> ::= <stmt-list>
 
@@ -16,7 +26,21 @@ S start variable, S is a member of V, <program>
          | <while_stmt>
          | <for_stmt>
          | <decl_stmt>
+         | <func_def_stmt>
          ...
+         
+         
+<type-ident> ::= int
+               | float
+               | char
+               | void
+
+<ident-list> ::= <ident>
+               | <ident> , <ident-list>
+                           
+<decl-stmt> ::= <type-ident> <ident-list> ;
+
+<func_def_stmt> ::= <type-ident> <ident> (<ident-list>) <stmt-list> //void func(float param) print("Example Function");
 
 <assignment_stmt> ::= <ident> = <expr> ;
 
@@ -48,26 +72,8 @@ S start variable, S is a member of V, <program>
 
 ...
 
-<decl-stmt> ::= <type-ident> <ident-list> ;
-
-<type-ident> ::= int
-               | float
-               | char
-
-<ident-list> ::= <ident>
-               | <ident> , <ident-list>
 
 
 
 
 
-
-//Regular Expression for Lexemes:
-
-<char> : a | b | c | d ... | A | B | C ... | _ | $
-
-<digit>: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-
-<ident> : <char>+(<char>|<digit>)*
-
-<int_const>: (+|-)?<digit>+
