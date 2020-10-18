@@ -101,7 +101,7 @@ STRING \"[^\"]*\"
 {PRINT}				 		printf("PRINT ");
 {FUNCTION}					printf("FUNCTION ");
 
-{IDENTIFIER}				printf("IDENT ");
+{IDENTIFIER}				printf("IDENTIFIER ");
 {STRING}					printf("STRING ");
 
 %%

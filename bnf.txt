@@ -21,6 +21,10 @@ S start variable, S is a member of V, <program>
 
 <ident_list> : <ident> | <ident> , <ident_list>
 
+<true> : true
+
+<false> : false
+
 //end of lexemes
 
 // program start
@@ -92,7 +96,15 @@ S start variable, S is a member of V, <program>
         | <term>
 
 <logic_exp> ::= <expr> and <expr>
-        | // devam
+        | <expr> or <expr>
+        | not <expr>
+        | <logic_exp> and <logic_exp>
+        | <logic_exp> or <logic_exp>
+        | not <logic_exp>
+        | <true>
+        | <false>
+        | 0
+        | 1
 
 <term> ::= <term> * <term>
         | <term> / <factor>
