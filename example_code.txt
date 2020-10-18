@@ -2,11 +2,12 @@
 
 for( int i = 0; i < 15; i++ ) {
     double a = 5.2;
-    double b = 5.3;
+    float b = 5.35;
     bool x = true;
     if( (a == b) && x ) {
         print("a == b");
     } elif {
+        print( a - b );
         return :!x;
     }
 }
@@ -45,4 +46,4 @@ COMMENT
 
  FUNCTION  IDENT LPAR INT_TYPE  IDENT COMMA  INT_TYPE  IDENT RPAR  LBRACKET
      INT_TYPE  IDENT  ASSIGNMENT  IDENT  PLUS  IDENT SEMICOLON
-     RETURN  IDENT SEMICOLON 
+     RETURN  IDENT SEMICOLON

@@ -32,7 +32,7 @@ AND \&\&
 RETURN return
 PRINT print
 NOT :!
-BUILTIN_FUNC readInclination() | readAlt() | readTemp() | readAccel() | toggleCamera() | takePic() | readTs() | connect()
+BUILTIN_FUNC (readInclination|readAlt|readTemp|readAccel|toggleCamera|takePic|readTs|connect)
 
 INT_TYPE int
 FLOAT_TYPE float
@@ -63,7 +63,7 @@ STRING \"[^\"]*\"
 {DOUBLE_TYPE}				printf("DOUBLE_TYPE ");
 {VOID}						printf("VOID ");
 {BOOLEAN_TYPE}				printf("BOOLEAN_TYPE ");
-
+{BUILTIN_FUNC}				printf("BUILTIN_FUNC");
 
 {ASSIGNMENT} 		  	 	printf("ASSIGNMENT ");
 {NEWLINE}					printf("\n ");
