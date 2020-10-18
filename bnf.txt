@@ -40,9 +40,16 @@ S start variable, S is a member of V, <program>
          | <input_stmt>
          | <output_stmt>
 
-// problem??
-<if_stmt> ::= if ( <logic_expr> ) <stmt> ;
-            | if ( <logic_expr> ) <stmt> else <stmt>;
+// from slides
+<if_stmt> ::= <matched_if> | <unmatched_if>
+
+<matched_if> ::= if <expr> then <matched_if> else <matched_if>
+        | <stmt>
+        
+<unmatched_if> ::= if <expr> then <stmt>
+        | if <expr> then <matched_if> else <unmatched_if>
+
+// slides ends
 
 <for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>;
 
@@ -83,6 +90,9 @@ S start variable, S is a member of V, <program>
 
 <expr> ::= <expr> <operator> <expr>
         | <term>
+
+<logic_exp> ::= <expr> and <expr>
+        | // devam
 
 <term> ::= <term> * <term>
         | <term> / <factor>
