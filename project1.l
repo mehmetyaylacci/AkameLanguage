@@ -63,7 +63,7 @@ STRING \"[^\"]*\"
 {DOUBLE_TYPE}				printf("DOUBLE_TYPE ");
 {VOID}						printf("VOID ");
 {BOOLEAN_TYPE}				printf("BOOLEAN_TYPE ");
-{BUILTIN_FUNC}				printf("BUILTIN_FUNC");
+{BUILTIN_FUNC}				printf("BUILTIN_FUNC ");
 
 {ASSIGNMENT} 		  	 	printf("ASSIGNMENT ");
 {NEWLINE}					printf("\n ");
