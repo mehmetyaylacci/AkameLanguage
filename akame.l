@@ -32,7 +32,14 @@ AND \&\&
 RETURN return
 PRINT print
 NOT :!
-BUILTIN_FUNC (readInclination|readAlt|readTemp|readAccel|toggleCamera|takePic|readTs|connect)
+READINC readInclination
+READALT readAlt
+READTEMP readTemp
+READACCEL readAccel
+TOGGLECAMERA toggleCamera
+TAKEPIC takePic
+READTS readTs
+CONNECT connect
 
 INT_TYPE int
 FLOAT_TYPE float
