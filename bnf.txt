@@ -114,5 +114,5 @@ S start variable, S is a member of V, <program>
           |  <idc>
 
 <idc> ::= <id>
-        | <const>
+        | <int_const>
         | <expr>
