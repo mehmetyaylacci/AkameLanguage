@@ -1,0 +1,265 @@
+GROUP NUMBER:	39
+
+LANGUAGE NAME:	Akame
+
+GRADE:		75/100
+
+
+
+PART A:-15
+
+PART B:-2
+
+PART C:-8
+
+
+
+-------------------------------PART A - LANGUAGE DESIGN (40)------------------------------
+
+-2 BNF Syntax
+
+*The non-terminal <const> is used but not defined.
+
+*The non-terminal <string> is used but not defined.
+
+*The non-terminal <primitive_func> is used but not defined.
+
+Check for similar cases.
+
+
+
+-1 This is ambiguous. Check the unambiguity rules for BNF.Check for similar cases.
+
+<logic_exp> ::= <expr> and <expr>
+
+
+
+-2 Missing precedence rules for logical operations
+
+<logic_exp> ::= <expr> and <expr> | <expr> or <expr>
+
+| not <expr>
+
+
+
+-2 Missing precedence rules for arithmetic operations
+
+<expr> ::= <expr> <operator> <expr> | <term>
+
+<operator> ::= + | - | * | /
+
+
+
+-1 Missing recursion for arithmetic and logical operations such as LP arithmetic_expr RP
+
+<expr> ::= <expr> <operator> <expr> | <term>
+
+<operator> ::= + | - | * | / <term> ::= <term> * <term>
+
+| <term> / <factor>
+
+| <factor>
+
+<factor> ::= <idc> * <factor> //* is exponentiation
+
+| <idc>
+
+
+
+-5 Writability
+
+* Defining variables and Assignment: not possible to do assignments such as:
+
+variable = function call (a function defined by user)
+
+variable = logical expression
+
+variable = relational expression
+
+variable = primitive function
+
+<assignment_stmt> ::= <ident> = <expr> ;
+
+<expr> ::= <expr> <operator> <expr> | <term>
+
+<operator> ::= + | - | * | / <term> ::= <term> * <term>
+
+| <term> / <factor>
+
+| <factor>
+
+<factor> ::= <idc> * <factor> //* is exponentiation
+
+| <idc>
+
+<idc> ::= <id> | <const> | <expr>
+
+
+
+* Function Definition: having no parameters is not possible
+
+<func_def_stmt> ::= <type-ident> <func_ident> (<ident-list>) <stmt-list>
+
+<ident-list> ::= <ident>
+
+| <ident> , <ident-list>
+
+
+
+* Function Definition: since you have types(int, string, set, etc.) in your language, you need to specify them while defining function parameters
+
+<func_def_stmt> ::= <type-ident> <func_ident> (<ident-list>) <stmt-list>
+
+<ident-list> ::= <ident>
+
+| <ident> , <ident-list>
+
+<type-ident> ::= int
+
+| float | char | void
+
+
+
+*Loop statement: not possible to use function_call or primitive function inside loop.
+
+while(function_call < 5) {...}
+
+while(primitive_function < 5) {...}
+
+<while_stmt> ::= while ( <expr> ) <stmt-list>;
+
+<expr> ::= <expr> <operator> <expr> | <term>
+
+<operator> ::= + | - | * | / <term> ::= <term> * <term>
+
+| <term> / <factor>
+
+| <factor>
+
+<factor> ::= <idc> * <factor> //* is exponentiation
+
+| <idc>
+
+
+
+* Output statement: output statement print the given content to the console, it should be possible to output:
+
+output(number)
+
+output(variable)
+
+output(function call)
+
+output(primitive function)
+
+<output_stmt> ::= output ( <string> )
+
+
+
+-2 Reliability
+
+* Function Call: How do you call a function only using its name? It is not reliable since it is written similar to dentifier.
+
+<func_call> ::= <func_ident>
+
+<func_ident> : <char> | <ident> <char> | <ident> <digit>
+
+<ident> : <char> | <ident> <char> | <ident> <digit>
+
+
+
+-----------------------------PART B - LEXICAL ANALYSIS (30)-------------------------------
+
+
+
+-1 In this part of the project, each token should be printed one by one. You should not define a whole set in Lex. In project 2, you will handle this in yacc with BNF. Lexer should print each token one by one. Check if you have similar cases.
+
+BUILTIN_FUNC (readInclination|readAlt|readTemp|readAccel|toggleCamera|takePic|readTs|connect)
+
+For instance, readInclination should return readInclination not BUILTIN_FUNC. The definition of built-in function should be made in BNF and used in second project. 
+
+
+
+-1 Inconsistency between BNF and Lex
+
+{FUNCTION}					printf("FUNCTION ");
+
+
+
+-------------------------------PART C - EXAMPLE PROGRAM (30)------------------------------
+
+-1 In the project website: The programs will be executed on the base computer, which will send the commands to the drone over the wi-fi connection. 
+
+It means that you need to first connect to base computer over wi-fi connection and then then receive the data or send command using primitive functions.
+
+
+
+-5 Inconsistency between BNF and example
+
+*This is not possible with your BNF
+
+int c = a + b;
+
+<decl-stmt> ::= <type-ident> <ident-list> ;
+
+<assignment_stmt> ::= <ident> = <expr> ;
+
+*This is not possible with your BNF
+
+<while_stmt> ::= while ( <expr> ) <stmt-list>;
+
+<expr> ::= <expr> <operator> <expr> | <term>
+
+<operator> ::= + | - | * | / <term> ::= <term> * <term>
+
+| <term> / <factor>
+
+| <factor>
+
+<factor> ::= <idc> * <factor> //* is exponentiation
+
+| <idc>
+
+*This is not possible with your BNF
+
+if( (a == b) && x ) {....}
+
+<matched_if> ::= if <expr> then <matched_if> else <matched_if>
+
+<expr> ::= <expr> <operator> <expr> | <term>
+
+<operator> ::= + | - | * | / <term> ::= <term> * <term>
+
+| <term> / <factor>
+
+| <factor>
+
+<factor> ::= <idc> * <factor> //* is exponentiation
+
+| <idc>
+
+*This is not possible with your BNF
+
+<func_def_stmt> ::= <type-ident> <func_ident> (<ident-list>) <stmt-list>
+
+function sum(int a, int b) {
+
+    int c = a + b;
+
+    return c;
+
+}
+
+
+
+-2 No example for function call that is defined by user
+
+
+
+Further Improvement:
+
+*Tokens defined in Lex should not be defined in BNF again. Their tokens should be used in BNF. For instance, if you have a token as IDENTIFIER in Lex, you can directly use IDENTIFIER in BNF. You don't need to define identifier in BNF with a non-terminal <identifier>.
+
+
+
+*As a reminder, check your BNF for possible ambiguity problems that leads your grammar to have multiple parse tree.
