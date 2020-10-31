@@ -176,3 +176,132 @@ S start variable, S is a member of V, <program>
 <func_def_stmt> ::= <type-ident> FUNCTION LPAR <ident-list> RPAR LBRACKET <stmt-list> RBRACKET //void func(float param) print("Example Function");
 
 # Array
+
+####### old #######
+Grammar G (V, T, P, S)
+V(non-terminals) = {<stmt>, <assignment_stmt>, <if_stmt>, <for_stmt>, <while_stmt>, <decl_stmt>, ... }
+T(terminals) = {";", "int", "float", "char",  "," , "(", ")", "if", "else",  ... }
+P(productions) = { "<ident-list> ::= <ident> | <ident> , <ident-list>", ... }
+S start variable, S is a member of V, <program>
+
+//Regular Expression for Lexemes:
+
+<char> : a | b | c | d ... | A | B | C ... | _ | $
+
+<digit>: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+<sign>: + | -
+
+<ident> : <char> | <ident> <char> | <ident> <digit>
+
+<func_ident> : <char> | <ident> <char> | <ident> <digit>
+
+<int_const>: <sign> <digit> | <int_const> <digit>
+
+<ident_list> : <ident> | <ident> , <ident_list>
+
+<true> : true
+
+<false> : false
+
+//end of lexemes
+
+// program start
+
+<type-ident> ::= int
+               | float
+               | char
+               | void
+
+<ident-list> ::= <ident>
+               | <ident> , <ident-list>
+
+<primitive_func> ::= <ident>.readInclination()
+                  |  <ident>.readAlt()
+                  |  <ident>.readTemp()
+                  |  <ident>.readAccel()
+                  |  <ident>.toggleCamera()
+                  |  <ident>.takePic()
+                  |  <ident>.readTs()
+                  |  <ident>.connect()
+
+<assignment_stmt> ::= <ident> = <expr> ;
+
+// program end
+
+<operator> ::= + | - | * | /
+
+<expr> ::= <expr> <operator> <expr>
+        | <term>
+
+<logic_exp> ::= <expr> AND <logic_exp>
+        | <expr> OR <logic_exp>
+        | NOT <expr>
+        | NOT <logic_exp>
+        | TRUE
+        | FALSE
+        | 0
+        | 1
+
+<term> ::= <term> * <term>
+        | <term> / <factor>
+        | <factor>
+
+<factor> ::= <idc> ** <factor>  //** is exponentiation
+          |  <idc>
+
+<idc> ::= <id>
+        | <int_const>
+        | <expr>
+
+#######################
+
+# Program
+<program> ::= MAIN LPAR RPAR LBRACKET <stmt-list> RBRACKET
+
+<stmt-list> ::= <stmt>
+              | <stmt-list> <stmt>
+
+
+# !!
+
+# Statement types
+# Loop
+# fix
+<stmt> ::= <assignment_stmt>
+         | <if_stmt> 
+         | <while_stmt>
+         | <for_stmt>
+         | <func_call>
+         | <decl_stmt>
+         | <func_def_stmt>
+         | <input_stmt>
+         | <output_stmt>
+
+// from slides
+<if_stmt> ::= <matched_if> | <unmatched_if>
+
+<matched_if> ::= IF <expr> then <matched_if> else <matched_if>
+        | <stmt>
+        
+<unmatched_if> ::= IF <expr> then <stmt>
+        | IF <expr> then <matched_if> else <unmatched_if>
+
+// slides ends
+
+<for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>;
+
+<while_stmt> ::= while ( <expr> ) <stmt-list>;
+
+<func_call> ::= <func_ident>
+
+<input_stmt> ::= input ( <ident> )
+
+<output_stmt> ::= output ( STRING )
+
+# Declaration
+<decl-stmt> ::= <type-ident> <ident-list> ;
+
+<func_def_stmt> ::= <type-ident> FUNCTION LPAR <ident-list> RPAR LBRACKET <stmt-list> RBRACKET //void func(float param) print("Example Function");
+
+# Array
