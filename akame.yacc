@@ -1,8 +1,71 @@
 * calculator.y */
 
 %{
-#include <stdio.h>
+    #include <stdio.h>
 %}
+
+%token STRING
+%token MAIN
+%token ASSIGNMENT
+%token NEWLINE
+%token IS_EQUAL
+%token MINUS
+%token PLUS
+%token IF
+%token ELSE
+%token ELSE_IF
+%token COMMENT
+%token HASHTAG
+%token DIGIT
+%token LPAR
+%token RPAR
+%token LBRACKET
+%token RBRACKET
+%token FOR
+%token DO
+%token WHILE
+%token GREATER
+%token LESS
+%token GTE
+%token LTE
+%token NOT_EQUAL
+%token SEMICOLON
+%token DOT
+%token COMMA
+%token COLON
+%token MULT
+%token DIV
+%token OR
+%token AND
+%token RETURN
+%token PRINT
+%token NOT
+
+%token READINC
+%token READALT
+%token READTEMP
+%token READACCEL
+%token TOGGLECAMERA
+%token TAKEPIC
+%token READTS
+%token INPUT
+%token CONNECT
+
+%token INT_TYPE
+%token FLOAT_TYPE
+%token DOUBLE_TYPE
+%token VOID
+%token BOOLEAN_TYPE
+
+%token LOWERCASE
+%token UPPERCASE
+%token TRUE
+%token FALSE
+%token BOOLEAN
+%token ALPHANUMERIC
+%token IDENTIFIER
+%token INTEGER
+%token FLOAT
 
 %union{ double   real; /* real value */
         int   integer; /* integer value */
