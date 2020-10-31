@@ -1,3 +1,9 @@
+%{
+	#include <stdio.h>
+	//#include "y.tab.h"
+	void yyerror(char *);
+%}
+
 STRING \"[^\"]*\"
 MAIN main
 ASSIGNMENT =
@@ -34,6 +40,7 @@ AND \&\&
 RETURN return
 PRINT print
 NOT :!
+EXPONENT \*\*
 
 READINC readInclination
 READALT readAlt
@@ -50,6 +57,7 @@ FLOAT_TYPE float
 DOUBLE_TYPE double
 VOID void
 BOOLEAN_TYPE bool
+CHAR_TYPE char
 
 LOWERCASE [a-z]
 UPPERCASE [A-Z]
@@ -62,7 +70,7 @@ INTEGER [-+]?{DIGIT}+
 FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
 
 
-
+%option yylineno
 %%
 {TRUE}						printf("TRUE ");
 {FALSE}						printf("FALSE ");
@@ -80,7 +88,10 @@ FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
 {TOGGLECAMERA}				printf("TOGGLECAMERA ");
 {TAKEPIC}					printf("TAKEPIC ");
 {ASSIGNMENT} 		  	 	printf("ASSIGNMENT ");
-{NEWLINE}					printf("\n ");
+{NEWLINE}		         	{
+								printf("\n ");
+				               	//return NEWLINE;
+				             }
 {IS_EQUAL} 					printf("IS_EQUAL ");
 {MINUS} 					printf("MINUS ");
 {PLUS}						printf("PLUS ");

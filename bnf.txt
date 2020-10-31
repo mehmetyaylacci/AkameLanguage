@@ -2,7 +2,7 @@
 Grammar G (V, T, P, S)
 V(non-terminals) = {<stmt>, <assignment_stmt>, <if_stmt>, <for_stmt>, <while_stmt>, <decl_stmt>, ... }
 T(terminals) = {";", "int", "float", "char",  "," , "(", ")", "if", "else",  ... }
-P(productions) = { "<ident-list> ::= <ident> | <ident> , <ident-list>", ... }
+P(productions) = { "<ident_list> ::= <ident> | <ident> , <ident_list>", ... }
 S start variable, S is a member of V, <program>
 
 //Regular Expression for Lexemes:
@@ -29,10 +29,10 @@ S start variable, S is a member of V, <program>
 
 // program start
 
-<program> ::= MAIN LPAR RPAR LBRACKET <stmt-list> RBRACKET
+<program> ::= MAIN LPAR RPAR LBRACKET <stmt_list> RBRACKET
 
-<stmt-list> ::= <stmt>
-              | <stmt-list> <stmt>
+<stmt_list> ::= <stmt>
+              | <stmt_list> <stmt>
 
 <stmt> ::= <assignment_stmt> SEMICOLON
          | <if_stmt> SEMICOLON
@@ -47,40 +47,40 @@ S start variable, S is a member of V, <program>
 // from slides
 <if_stmt> ::= <matched_if> | <unmatched_if>
 
-<matched_if> ::= IF <logic_exp> ELIF <matched_if> else <matched_if>
+<matched_if> ::= IF <logic_exp> ELSE_IF <matched_if> else <matched_if>
               | <stmt>
 
-<unmatched_if> ::= IF <logic_exp> ELIF <stmt>
-                | IF <logic_exp> ELIF <matched_if> ELSE <unmatched_if>
+<unmatched_if> ::= IF <logic_exp> ELSE_IF <stmt>
+                | IF <logic_exp> ELSE_IF <matched_if> ELSE <unmatched_if>
 
 // slides ends
 
-<for_stmt> ::= FOR LPAR <expr>; <expr>; <expr> RPAR <stmt-list>
+<for_stmt> ::= FOR LPAR <expr>; <expr>; <expr> RPAR <stmt_list>
 
-<while_stmt> ::= WHILE LPAR <expr>|<logic-expr>|<func_call>|<primitive_func> RPAR <stmt-list>
+<while_stmt> ::= WHILE LPAR <expr>|<logic_exp>|<func_call>|<primitive_func> RPAR <stmt_list>
 
 # eklenmesi istenen şeyler var
 <func_call> ::= <ident> LPAR <args> RPAR
 
-<args> ::= <type-ident> <ident>
-        | <type-ident> <ident>, <args>
+<args> ::= <type_ident> <ident>
+        | <type_ident> <ident>, <args>
         | ""
 
-<input_stmt> ::= input LPAR <ident> RPAR
+<input_stmt> ::= INPUT LPAR <ident> RPAR
 
-<output_stmt> ::= output LPAR STRING|<ident>|<func_call>|<primitive_func> RPAR # ******** burayı da kontrol et ********
+<output_stmt> ::= OUTPUT LPAR STRING|<ident>|<func_call>|<primitive_func> RPAR # ******** burayı da kontrol et ********
 
-<type-ident> ::= INT_TYPE
+<type_ident> ::= INT_TYPE
                | FLOAT_TYPE
                | CHAR_TYPE
                | VOID
 
-<ident-list> ::= <ident>
-               | <ident> , <ident-list>
+<ident_list> ::= <ident>
+               | <ident> COMMA <ident_list>
 
-<decl_stmt> ::= <type-ident> <ident-list>
+<decl_stmt> ::= <type_ident> <ident_list>
 
-<func_def_stmt> ::= <type-ident> <func_call> <stmt-list>
+<func_def_stmt> ::= <type_ident> <func_call> <stmt_list>
 
 <primitive_func> ::= <ident> DOT READINC SEMICOLON
                   |  <ident> DOT READALT SEMICOLON
@@ -92,9 +92,9 @@ S start variable, S is a member of V, <program>
                   |  <ident> DOT CONNECT SEMICOLON
 
 
-<assignment_stmt> ::= <ident-list> = <expr>
-                    | <ident-list> = <func_call>
-                    | <ident-list> = <primitive_func>
+<assignment_stmt> ::= <ident_list> = <expr>
+                    | <ident_list> = <func_call>
+                    | <ident_list> = <primitive_func>
 
 
 <logic_exp> ::= <logic_exp_or>
@@ -113,7 +113,7 @@ S start variable, S is a member of V, <program>
 
 <logic_exp_not> ::= NOT <logic_exp_p> | <logic_exp_p>
 
-<logic_exp_p> ::= LPAR <logical_exp> RPAR | BOOLEAN
+<logic_exp_p> ::= LPAR <logic_exp> RPAR | BOOLEAN
 
 <expr> ::= <expr> PLUS <term>
         | <expr> MINUS <term>
@@ -123,7 +123,7 @@ S start variable, S is a member of V, <program>
         | <term> / <factor>
         | <factor>
 
-<factor> ::= <idc> ** <factor>  //** is exponentiation
+<factor> ::= <idc> EXPONENT <factor>
           |  <idc>
 
 <idc> ::= <ident> # *****************KONTROL ET***
