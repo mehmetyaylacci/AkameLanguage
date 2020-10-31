@@ -47,25 +47,29 @@ S start variable, S is a member of V, <program>
 // from slides
 <if_stmt> ::= <matched_if> | <unmatched_if>
 
-<matched_if> ::= if <expr> elif <matched_if> else <matched_if>
+<matched_if> ::= if <logic_exp> elif <matched_if> else <matched_if>
               | <stmt>
         
-<unmatched_if> ::= if <expr> elif <stmt>
-                | if <expr> elif <matched_if> else <unmatched_if>
+<unmatched_if> ::= if <logic_exp> elif <stmt>
+                | if <logic_exp> elif <matched_if> else <unmatched_if>
 
 // slides ends
 
 <for_stmt> ::= FOR LPAR <expr>; <expr>; <expr> RPAR <stmt-list>;
 
-<while_stmt> ::= WHILE LPAR <expr> | <logic-expr> RPAR <stmt-list>;
+<while_stmt> ::= WHILE LPAR <expr>|<logic-expr>|<func_call>|<primitive_func> RPAR <stmt-list>;
 
+# eklenmesi istenen şeyler var
 <func_call> ::= <ident> LPAR <args> RPAR
+
+
 <args> ::= <type-ident> <ident> 
-        | <type-ident> <ident>, <param>
+        | <type-ident> <ident>, <args>
+        | "" #no parameters
 
 <input_stmt> ::= input LPAR <ident> RPAR
 
-<output_stmt> ::= output LPAR STRING RPAR
+<output_stmt> ::= output LPAR STRING|<ident>|<func_call>|<primitive_func> RPAR # ******** burayı da kontrol et ********
 
 <type-ident> ::= INT_TYPE
                | FLOAT_TYPE
@@ -88,23 +92,25 @@ S start variable, S is a member of V, <program>
                   |  <ident>.readTs()
                   |  <ident>.connect()
 
+
 <assignment_stmt> ::= <ident-list> = <expr>
+                    | <ident-list> = <func_call>
+                    | <ident-list> = <primitive_func>
 
-// program end
 
-#<operator> ::= + | - | * | /
+<logic_exp> ::= <logic_exp_and>
+        | <logic_exp> OR <logic_exp_and>  
 
-<expr> ::= <expr> <operator> <expr>
+<logic_exp_and> ::= <logic_exp_and> AND <logic_exp_not>
+  | <logic_exp_not> 
+
+<logic_exp_not> ::= NOT <logic_exp_p> | <logic_exp_p>
+
+<logic_exp_p> ::= LPAR <logical_exp> RPAR | BOOLEAN
+
+<expr> ::= <expr> PLUS <term>
+        | <expr> MINUS <term>
         | <term>
-
-## ambigious demiş buna, precedence sorunu da var
-<logic_exp> ::= <expr> AND <logic_exp>
-        | <expr> OR <logic_exp>
-        | NOT <expr>     
-        | TRUE
-        | FALSE
-        | 0
-        | 1
 
 <term> ::= <term> * <term>
         | <term> / <factor>
@@ -113,8 +119,10 @@ S start variable, S is a member of V, <program>
 <factor> ::= <idc> ** <factor>  //** is exponentiation
           |  <idc>
 
-<idc> ::= <id>
+<idc> ::= <ident> # *****************KONTROL ET***
         | <int_const>
-        | <expr>
+        | LPAR <expr> RPAR
+
+// program end
 
 # Program
