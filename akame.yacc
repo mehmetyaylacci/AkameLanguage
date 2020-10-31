@@ -180,7 +180,7 @@ term:            term MULT term
                 | term DIV factor
                 | factor
 
-factor:         idc EXPONENT factor  //** is exponentiation
+factor:         idc EXPONENT factor 
                 |  idc
 
 idc:            ident
