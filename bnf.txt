@@ -119,7 +119,7 @@ S start variable, S is a member of V, <program>
 
 <input_stmt> ::= input ( <ident> )
 
-<output_stmt> ::= output ( <string> )
+<output_stmt> ::= output ( STRING )
 
 # Declaration
 <decl-stmt> ::= <type-ident> <ident-list> ;

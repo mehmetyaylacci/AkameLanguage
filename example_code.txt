@@ -1,24 +1,51 @@
 #this is a comment
 
-for( int i = 0; i < 15; i++ ) {
-    double a = 5.2;
-    float b = 5.35;
-    bool x = true;
-    if( (a == b) && x ) {
-        print("a == b");
-    } elif {
-        print( a - b );
-        return :!x;
+bool operationExample() {
+    for( int i = 0; i < 15; i++ ) {
+        double a = 5.2;
+        float b = 5.35;
+        bool x = true;
+        if( (a == b) && x ) {
+            print("a == b");
+            x = :!x;
+        } elif {
+            print( a - b );
+            print("FUNCTION");
+            return x;
+        }
     }
 }
 
-
-while( true ) {
-    a.readInclination;
-    a.readTemp;
-}
-
-function sum(int a, int b) {
+int sum(int a, int b) {
     int c = a + b;
     return c;
+}
+
+#if temp is higher than 90, output warning message
+void overheat( int temp ) {
+    if( temp > 90 ) {
+        print("HIGH TEMP WARNING!");
+        print("Current Temperature: " + temp );
+    }
+}
+
+void main() {
+
+    connect(); #connect to the server via built-in function
+
+    int temp;
+    int incl;
+
+    int a = 5;
+    int b = 3;
+    int c = sum(a, b);
+
+    #check for temp
+    while( true ) {
+        temp = readTemp();
+        incl = readInclination();
+        overheat(temp);
+        printIncl();
+    }
+
 }

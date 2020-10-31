@@ -1,3 +1,4 @@
+STRING \"[^\"]*\"
 MAIN main
 ASSIGNMENT =
 NEWLINE \n
@@ -33,6 +34,7 @@ AND \&\&
 RETURN return
 PRINT print
 NOT :!
+
 READINC readInclination
 READALT readAlt
 READTEMP readTemp
@@ -40,6 +42,7 @@ READACCEL readAccel
 TOGGLECAMERA toggleCamera
 TAKEPIC takePic
 READTS readTs
+INPUT input
 CONNECT connect
 
 INT_TYPE int
@@ -48,7 +51,6 @@ DOUBLE_TYPE double
 VOID void
 BOOLEAN_TYPE bool
 
-FUNCTION function
 LOWERCASE [a-z]
 UPPERCASE [A-Z]
 TRUE true
@@ -58,21 +60,25 @@ ALPHANUMERIC ({UPPERCASE}|{LOWERCASE}|{DIGIT})
 IDENTIFIER {LOWERCASE}{ALPHANUMERIC}*
 INTEGER [-+]?{DIGIT}+
 FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
-INPUT input()
-STRING \"[^\"]*\"
-
 
 
 
 %%
+{TRUE}						printf("TRUE ");
+{FALSE}						printf("FALSE ");
 {NOT}						printf("NOT ");
 {INT_TYPE}					printf("INT_TYPE ");
 {FLOAT_TYPE}				printf("FLOAT_TYPE ");
 {DOUBLE_TYPE}				printf("DOUBLE_TYPE ");
 {VOID}						printf("VOID ");
 {BOOLEAN_TYPE}				printf("BOOLEAN_TYPE ");
-{BUILTIN_FUNC}				printf("BUILTIN_FUNC ");
-
+{READINC}					printf("READINC ");
+{READTS}					printf("READTS ");
+{READALT}					printf("READINC ");
+{READTEMP}					printf("READTEMP ");
+{READACCEL}					printf("READACCEL ");
+{TOGGLECAMERA}				printf("TOGGLECAMERA ");
+{TAKEPIC}					printf("TAKEPIC ");
 {ASSIGNMENT} 		  	 	printf("ASSIGNMENT ");
 {NEWLINE}					printf("\n ");
 {IS_EQUAL} 					printf("IS_EQUAL ");
@@ -81,7 +87,7 @@ STRING \"[^\"]*\"
 {IF} 						printf("IF ");
 {ELSE} 						printf("ELSE ");
 {ELSE_IF}	 				printf("ELSE_IF ");
-{COMMENT} 					printf("COMMENT ");
+{COMMENT} 					printf("COMMENT\n ");
 {HASHTAG}					printf("HASHTAG ");
 {INTEGER}					printf("INTEGER ");
 {FLOAT}						printf("FLOAT ");
@@ -107,14 +113,16 @@ STRING \"[^\"]*\"
 {AND}				 		printf("AND ");
 {RETURN}				 	printf("RETURN ");
 {PRINT}				 		printf("PRINT ");
-{FUNCTION}					printf("FUNCTION ");
-
+{MAIN}						printf("MAIN ");
 {IDENTIFIER}				printf("IDENTIFIER ");
 {STRING}					printf("STRING ");
-{MAIN}						printf("MAIN")
-
 %%
 
 int yywrap(void) {
 	return 1;
+}
+
+int main(void) {
+	yylex();
+	return 0;
 }
