@@ -1,3 +1,4 @@
+MAIN main
 ASSIGNMENT =
 NEWLINE \n
 IS_EQUAL ==
@@ -110,14 +111,10 @@ STRING \"[^\"]*\"
 
 {IDENTIFIER}				printf("IDENTIFIER ");
 {STRING}					printf("STRING ");
+{MAIN}						printf("MAIN")
 
 %%
 
 int yywrap(void) {
 	return 1;
-}
-
-int main(void) {
-	yylex();
-	return 0;
 }

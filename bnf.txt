@@ -29,39 +29,6 @@ S start variable, S is a member of V, <program>
 
 // program start
 
-
-
-<stmt> ::= <assignment_stmt>
-         | <if_stmt>
-         | <while_stmt>
-         | <for_stmt>
-         | <func_call>
-         | <decl_stmt>
-         | <func_def_stmt>
-         | <input_stmt>
-         | <output_stmt>
-
-// from slides
-<if_stmt> ::= <matched_if> | <unmatched_if>
-
-<matched_if> ::= if <expr> then <matched_if> else <matched_if>
-        | <stmt>
-        
-<unmatched_if> ::= if <expr> then <stmt>
-        | if <expr> then <matched_if> else <unmatched_if>
-
-// slides ends
-
-<for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>;
-
-<while_stmt> ::= while ( <expr> ) <stmt-list>;
-
-<func_call> ::= <func_ident>
-
-<input_stmt> ::= input ( <ident> )
-
-<output_stmt> ::= output ( <string> )
-
 <type-ident> ::= int
                | float
                | char
@@ -117,7 +84,42 @@ S start variable, S is a member of V, <program>
 #######################
 
 # Program
-<program> ::= <stmt-list>
+<program> ::= MAIN LPAR RPAR LBRACKET <stmt-list> RBRACKET
 
 <stmt-list> ::= <stmt>
               | <stmt-list> <stmt>
+
+
+# !!
+
+# Statement types
+<stmt> ::= <assignment_stmt>
+         | <if_stmt>
+         | <while_stmt>
+         | <for_stmt>
+         | <func_call>
+         | <decl_stmt>
+         | <func_def_stmt>
+         | <input_stmt>
+         | <output_stmt>
+
+// from slides
+<if_stmt> ::= <matched_if> | <unmatched_if>
+
+<matched_if> ::= if <expr> then <matched_if> else <matched_if>
+        | <stmt>
+        
+<unmatched_if> ::= if <expr> then <stmt>
+        | if <expr> then <matched_if> else <unmatched_if>
+
+// slides ends
+
+<for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>;
+
+<while_stmt> ::= while ( <expr> ) <stmt-list>;
+
+<func_call> ::= <func_ident>
+
+<input_stmt> ::= input ( <ident> )
+
+<output_stmt> ::= output ( <string> )
