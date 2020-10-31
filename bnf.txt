@@ -29,10 +29,7 @@ S start variable, S is a member of V, <program>
 
 // program start
 
-<program> ::= <stmt-list>
 
-<stmt-list> ::= <stmt>
-              | <stmt-list> <stmt>
 
 <stmt> ::= <assignment_stmt>
          | <if_stmt>
@@ -117,4 +114,10 @@ S start variable, S is a member of V, <program>
         | <int_const>
         | <expr>
 
+#######################
+
 # Program
+<program> ::= <stmt-list>
+
+<stmt-list> ::= <stmt>
+              | <stmt-list> <stmt>
