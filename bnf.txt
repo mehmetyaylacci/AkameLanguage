@@ -29,13 +29,59 @@ S start variable, S is a member of V, <program>
 
 // program start
 
-<type-ident> ::= int
-               | float
-               | char
-               | void
+<program> ::= <stmt-list>
+
+<stmt-list> ::= <stmt>
+              | <stmt-list> <stmt>
+
+<stmt> ::= <assignment_stmt>
+         | <if_stmt>
+         | <while_stmt>
+         | <for_stmt>
+         | <func_call>
+         | <decl_stmt>
+         | <func_def_stmt>
+         | <input_stmt>
+         | <output_stmt>
+
+// from slides
+<if_stmt> ::= <matched_if> | <unmatched_if>
+
+<matched_if> ::= if <logic_exp> elif <matched_if> else <matched_if>
+              | <stmt>
+        
+<unmatched_if> ::= if <logic_exp> elif <stmt>
+                | if <logic_exp> elif <matched_if> else <unmatched_if>
+
+// slides ends
+
+<for_stmt> ::= FOR LPAR <expr>; <expr>; <expr> RPAR <stmt-list>;
+
+<while_stmt> ::= WHILE LPAR <expr>|<logic-expr>|<func_call>|<primitive_func> RPAR <stmt-list>;
+
+# eklenmesi istenen şeyler var
+<func_call> ::= <ident> LPAR <args> RPAR
+
+
+<args> ::= <type-ident> <ident> 
+        | <type-ident> <ident>, <args>
+        | "" #no parameters
+
+<input_stmt> ::= input LPAR <ident> RPAR
+
+<output_stmt> ::= output LPAR STRING|<ident>|<func_call>|<primitive_func> RPAR # ******** burayı da kontrol et ********
+
+<type-ident> ::= INT_TYPE
+               | FLOAT_TYPE
+               | CHAR_TYPE
+               | VOID
 
 <ident-list> ::= <ident>
                | <ident> , <ident-list>
+
+<decl_stmt> ::= <type-ident> <ident-list> ;
+
+<func_def_stmt> ::= <type-ident> <func_call> <stmt-list> //void func(float param) print("Example Function");
 
 <primitive_func> ::= <ident>.readInclination()
                   |  <ident>.readAlt()
@@ -46,24 +92,25 @@ S start variable, S is a member of V, <program>
                   |  <ident>.readTs()
                   |  <ident>.connect()
 
-<assignment_stmt> ::= <ident> = <expr> ;
 
-// program end
+<assignment_stmt> ::= <ident-list> = <expr>
+                    | <ident-list> = <func_call>
+                    | <ident-list> = <primitive_func>
 
-<operator> ::= + | - | * | /
 
-<expr> ::= <expr> <operator> <expr>
+<logic_exp> ::= <logic_exp_and>
+        | <logic_exp> OR <logic_exp_and>  
+
+<logic_exp_and> ::= <logic_exp_and> AND <logic_exp_not>
+  | <logic_exp_not> 
+
+<logic_exp_not> ::= NOT <logic_exp_p> | <logic_exp_p>
+
+<logic_exp_p> ::= LPAR <logical_exp> RPAR | BOOLEAN
+
+<expr> ::= <expr> PLUS <term>
+        | <expr> MINUS <term>
         | <term>
-
-# !! precedent 
-<logic_exp> ::= <expr> AND <logic_exp>
-        | <expr> OR <logic_exp>
-        | NOT <expr>
-        | NOT <logic_exp>
-        | TRUE
-        | FALSE
-        | 0
-        | 1
 
 <term> ::= <term> * <term>
         | <term> / <factor>
@@ -72,9 +119,11 @@ S start variable, S is a member of V, <program>
 <factor> ::= <idc> ** <factor>  //** is exponentiation
           |  <idc>
 
-<idc> ::= <id>
+<idc> ::= <ident> # *****************KONTROL ET***
         | <int_const>
-        | <expr>
+        | LPAR <expr> RPAR
+
+// program end
 
 #######################
 
