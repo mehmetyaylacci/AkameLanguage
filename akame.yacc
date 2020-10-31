@@ -131,6 +131,32 @@ for_stmt:       FOR LPAR expr SEMICOLON expr SEMICOLON expr RPAR stmt-list
 
 func_call:      ident LPAR args RPAR
 
+args:           type-ident ident
+                | type-ident ident COMMA args
+                | "" //empty
+
+decl_stmt:      type-ident ident_list
+
+func_def_stmt:  type-ident func_call stmt-list
+
+input_stmt:     INPUT LPAR ident RPAR
+
+output_stmt:    OUTPUT LPAR (STRING|ident|func_call|primitive_func) RPAR // ******** burayı da kontrol et ********
+//end of statements
+
+
+primitive_func: ident DOT READINC LPAR RPAR SEMICOLON
+                | ident DOT READALT LPAR RPAR SEMICOLON
+                | ident DOT READTEMP LPAR RPAR SEMICOLON
+                | ident DOT READACCEL LPAR RPAR SEMICOLON
+                | ident DOT TOGGLECAMERA LPAR RPAR SEMICOLON
+                | ident DOT TAKEPIC LPAR RPAR SEMICOLON
+                | ident DOT READTS LPAR RPAR SEMICOLON
+                | ident DOT CONNECT LPAR RPAR SEMICOLON
+
+
+
+
 
 
 //end of statements
