@@ -37,10 +37,6 @@ S start variable, S is a member of V, <program>
 <ident-list> ::= <ident>
                | <ident> , <ident-list>
 
-<decl-stmt> ::= <type-ident> <ident-list> ;
-
-<func_def_stmt> ::= <type-ident> <func_ident> (<ident-list>) <stmt-list> //void func(float param) print("Example Function");
-
 <primitive_func> ::= <ident>.readInclination()
                   |  <ident>.readAlt()
                   |  <ident>.readTemp()
@@ -93,6 +89,8 @@ S start variable, S is a member of V, <program>
 # !!
 
 # Statement types
+# Loop
+# fix
 <stmt> ::= <assignment_stmt>
          | <if_stmt>
          | <while_stmt>
@@ -123,3 +121,10 @@ S start variable, S is a member of V, <program>
 <input_stmt> ::= input ( <ident> )
 
 <output_stmt> ::= output ( <string> )
+
+# Declaration
+<decl-stmt> ::= <type-ident> <ident-list> ;
+
+<func_def_stmt> ::= <type-ident> <func_ident> (<ident-list>) <stmt-list> //void func(float param) print("Example Function");
+
+# Array
