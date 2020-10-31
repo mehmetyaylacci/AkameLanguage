@@ -55,14 +55,13 @@ S start variable, S is a member of V, <program>
 <expr> ::= <expr> <operator> <expr>
         | <term>
 
-<logic_exp> ::= <expr> and <expr>
-        | <expr> or <expr>
-        | not <expr>
-        | <logic_exp> and <logic_exp>
-        | <logic_exp> or <logic_exp>
-        | not <logic_exp>
-        | <true>
-        | <false>
+# !! precedent 
+<logic_exp> ::= <expr> AND <logic_exp>
+        | <expr> OR <logic_exp>
+        | NOT <expr>
+        | NOT <logic_exp>
+        | TRUE
+        | FALSE
         | 0
         | 1
 
@@ -92,7 +91,7 @@ S start variable, S is a member of V, <program>
 # Loop
 # fix
 <stmt> ::= <assignment_stmt>
-         | <if_stmt>
+         | <if_stmt> 
          | <while_stmt>
          | <for_stmt>
          | <func_call>
@@ -104,11 +103,11 @@ S start variable, S is a member of V, <program>
 // from slides
 <if_stmt> ::= <matched_if> | <unmatched_if>
 
-<matched_if> ::= if <expr> then <matched_if> else <matched_if>
+<matched_if> ::= IF <expr> then <matched_if> else <matched_if>
         | <stmt>
         
-<unmatched_if> ::= if <expr> then <stmt>
-        | if <expr> then <matched_if> else <unmatched_if>
+<unmatched_if> ::= IF <expr> then <stmt>
+        | IF <expr> then <matched_if> else <unmatched_if>
 
 // slides ends
 
@@ -125,6 +124,6 @@ S start variable, S is a member of V, <program>
 # Declaration
 <decl-stmt> ::= <type-ident> <ident-list> ;
 
-<func_def_stmt> ::= <type-ident> <func_ident> (<ident-list>) <stmt-list> //void func(float param) print("Example Function");
+<func_def_stmt> ::= <type-ident> FUNCTION LPAR <ident-list> RPAR LBRACKET <stmt-list> RBRACKET //void func(float param) print("Example Function");
 
 # Array
