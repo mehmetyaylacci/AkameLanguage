@@ -47,35 +47,37 @@ S start variable, S is a member of V, <program>
 // from slides
 <if_stmt> ::= <matched_if> | <unmatched_if>
 
-<matched_if> ::= if <expr> then <matched_if> else <matched_if>
-        | <stmt>
+<matched_if> ::= if <expr> elif <matched_if> else <matched_if>
+              | <stmt>
         
-<unmatched_if> ::= if <expr> then <stmt>
-        | if <expr> then <matched_if> else <unmatched_if>
+<unmatched_if> ::= if <expr> elif <stmt>
+                | if <expr> elif <matched_if> else <unmatched_if>
 
 // slides ends
 
-<for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>;
+<for_stmt> ::= FOR LPAR <expr>; <expr>; <expr> RPAR <stmt-list>;
 
-<while_stmt> ::= while ( <expr> ) <stmt-list>;
+<while_stmt> ::= WHILE LPAR <expr> | <logic-expr> RPAR <stmt-list>;
 
-<func_call> ::= <func_ident>
+<func_call> ::= <ident> LPAR <args> RPAR
+<args> ::= <type-ident> <ident> 
+        | <type-ident> <ident>, <param>
 
-<input_stmt> ::= input ( <ident> )
+<input_stmt> ::= input LPAR <ident> RPAR
 
-<output_stmt> ::= output ( <string> )
+<output_stmt> ::= output LPAR STRING RPAR
 
-<type-ident> ::= int
-               | float
-               | char
-               | void
+<type-ident> ::= INT_TYPE
+               | FLOAT_TYPE
+               | CHAR_TYPE
+               | VOID
 
 <ident-list> ::= <ident>
                | <ident> , <ident-list>
 
-<decl-stmt> ::= <type-ident> <ident-list> ;
+<decl_stmt> ::= <type-ident> <ident-list> ;
 
-<func_def_stmt> ::= <type-ident> <func_ident> (<ident-list>) <stmt-list> //void func(float param) print("Example Function");
+<func_def_stmt> ::= <type-ident> <func_call> <stmt-list> //void func(float param) print("Example Function");
 
 <primitive_func> ::= <ident>.readInclination()
                   |  <ident>.readAlt()
@@ -86,23 +88,21 @@ S start variable, S is a member of V, <program>
                   |  <ident>.readTs()
                   |  <ident>.connect()
 
-<assignment_stmt> ::= <ident> = <expr> ;
+<assignment_stmt> ::= <ident-list> = <expr>
 
 // program end
 
-<operator> ::= + | - | * | /
+#<operator> ::= + | - | * | /
 
 <expr> ::= <expr> <operator> <expr>
         | <term>
 
-<logic_exp> ::= <expr> and <expr>
-        | <expr> or <expr>
-        | not <expr>
-        | <logic_exp> and <logic_exp>
-        | <logic_exp> or <logic_exp>
-        | not <logic_exp>
-        | <true>
-        | <false>
+## ambigious demiş buna, precedence sorunu da var
+<logic_exp> ::= <expr> AND <logic_exp>
+        | <expr> OR <logic_exp>
+        | NOT <expr>     
+        | TRUE
+        | FALSE
         | 0
         | 1
 
