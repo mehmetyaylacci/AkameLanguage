@@ -29,6 +29,10 @@ void overheat( int temp ) {
     }
 }
 
+void printIncl( int incl ) {
+    print("Current Inclination: " + incl );
+}
+
 void main() {
 
     connect(); #connect to the server via built-in function
