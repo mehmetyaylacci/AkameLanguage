@@ -82,7 +82,72 @@
 %left TIMES DIVIDE
 %left UMINUS
 
+#begin program
+%start program
+
 %%
+
+program:
+        main
+
+main:
+    MAIN LPAR RPAR LBRACKET stmt_list RBRACKET
+
+stmt_list:
+         stmt
+         |stmt_list stmt
+
+
+stmt:
+    assignment_stmt SEMICOLON
+    | if_stmt SEMICOLON
+    | while_stmt SEMICOLON
+    | for_stmt SEMICOLON
+    | func_call SEMICOLON
+    | decl_stmt SEMICOLON
+    | func_def_stmt SEMICOLON
+    | input_stmt SEMICOLON
+    | output_stmt SEMICOLON
+
+//statements:
+assignment_stmt:
+                ident-list IS_EQUAL expr
+                | ident-list IS_EQUAL func_call
+                | ident-list IS_EQUAL primitive_func
+
+
+if_stmt:        matched_if
+                | unmatched_if
+
+matched_if:     IF logic_exp ELIF matched_if ELSE matched_if
+                | stmt
+
+unmatched_if:   IF logic_exp ELIF stmt
+                | IF logic_exp ELIF matched_if ELSE unmatched_if
+
+while_stmt:     WHILE LPAR (expr|logic-expr|func_call|primitive_func) RPAR stmt-list //check syntax here!
+
+for_stmt:       FOR LPAR expr SEMICOLON expr SEMICOLON expr RPAR stmt-list
+
+func_call:      ident LPAR args RPAR
+
+
+
+//end of statements
+
+ident_list:
+                ident
+                | ident ident_list
+
+ident:
+                ALPHANUMERIC
+                | ident ALPHANUMERIC
+
+
+
+
+
+
 
 lines: /* nothing */
      | lines line

@@ -34,15 +34,15 @@ S start variable, S is a member of V, <program>
 <stmt-list> ::= <stmt>
               | <stmt-list> <stmt>
 
-<stmt> ::= <assignment_stmt>
-         | <if_stmt>
-         | <while_stmt>
-         | <for_stmt>
-         | <func_call>
-         | <decl_stmt>
-         | <func_def_stmt>
-         | <input_stmt>
-         | <output_stmt>
+<stmt> ::= <assignment_stmt>;
+         | <if_stmt>;
+         | <while_stmt>;
+         | <for_stmt>;
+         | <func_call>;
+         | <decl_stmt>;
+         | <func_def_stmt>;
+         | <input_stmt>;
+         | <output_stmt>;
 
 // from slides
 <if_stmt> ::= <matched_if> | <unmatched_if>
@@ -55,9 +55,9 @@ S start variable, S is a member of V, <program>
 
 // slides ends
 
-<for_stmt> ::= FOR LPAR <expr>; <expr>; <expr> RPAR <stmt-list>;
+<for_stmt> ::= FOR LPAR <expr>; <expr>; <expr> RPAR <stmt-list>
 
-<while_stmt> ::= WHILE LPAR <expr>|<logic-expr>|<func_call>|<primitive_func> RPAR <stmt-list>;
+<while_stmt> ::= WHILE LPAR <expr>|<logic-expr>|<func_call>|<primitive_func> RPAR <stmt-list>
 
 # eklenmesi istenen şeyler var
 <func_call> ::= <ident> LPAR <args> RPAR
@@ -78,9 +78,9 @@ S start variable, S is a member of V, <program>
 <ident-list> ::= <ident>
                | <ident> , <ident-list>
 
-<decl_stmt> ::= <type-ident> <ident-list> ;
+<decl_stmt> ::= <type-ident> <ident-list>
 
-<func_def_stmt> ::= <type-ident> <func_call> <stmt-list> //void func(float param) print("Example Function");
+<func_def_stmt> ::= <type-ident> <func_call> <stmt-list> //void func(float param) print("Example Function")
 
 <primitive_func> ::= <ident>.readInclination()
                   |  <ident>.readAlt()
@@ -163,14 +163,14 @@ S start variable, S is a member of V, <program>
 
 // slides ends
 
-<for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>;
+<for_stmt> ::= for ( <expr>; <expr>; <expr> ) <stmt-list>
 
-<while_stmt> ::= while ( <expr> ) <stmt-list>;
+<while_stmt> ::= while ( <expr> ) <stmt-list>
 
 # Declaration
-<decl-stmt> ::= <type-ident> <ident-list> ;
+<decl-stmt> ::= <type-ident> <ident-list>
 
-<func_def_stmt> ::= <type-ident> FUNCTION LPAR <ident-list> RPAR LBRACKET <stmt-list> RBRACKET //void func(float param) print("Example Function");
+<func_def_stmt> ::= <type-ident> FUNCTION LPAR <ident-list> RPAR LBRACKET <stmt-list> RBRACKET //void func(float param) print("Example Function")
 
 ####### old #######
 Grammar G (V, T, P, S)
