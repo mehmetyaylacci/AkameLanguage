@@ -62,10 +62,9 @@ S start variable, S is a member of V, <program>
 # eklenmesi istenen şeyler var
 <func_call> ::= <ident> LPAR <args> RPAR
 
-
 <args> ::= <type-ident> <ident> 
         | <type-ident> <ident>, <args>
-        | "" #no parameters
+        | ""
 
 <input_stmt> ::= input LPAR <ident> RPAR
 
@@ -133,11 +132,7 @@ S start variable, S is a member of V, <program>
 <stmt-list> ::= <stmt>
               | <stmt-list> <stmt>
 
-
-# !!
-
-# Statement types
-# Loop
+# Statement types and Loops
 # fix
 <stmt> ::= <assignment_stmt>
          | <if_stmt> 
@@ -164,18 +159,10 @@ S start variable, S is a member of V, <program>
 
 <while_stmt> ::= while ( <expr> ) <stmt-list>;
 
-<func_call> ::= <func_ident>
-
-<input_stmt> ::= input ( <ident> )
-
-<output_stmt> ::= output ( STRING )
-
 # Declaration
 <decl-stmt> ::= <type-ident> <ident-list> ;
 
 <func_def_stmt> ::= <type-ident> FUNCTION LPAR <ident-list> RPAR LBRACKET <stmt-list> RBRACKET //void func(float param) print("Example Function");
-
-# Array
 
 ####### old #######
 Grammar G (V, T, P, S)
