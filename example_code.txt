@@ -5,7 +5,7 @@ bool operationExample() {
         double a = 5.2;
         float b = 5.35;
         bool x = true;
-        if( (a == b) && x ) {
+        if( a == b ) {
             print("a == b");
             x = :!x;
         } elif {
