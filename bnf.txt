@@ -25,6 +25,8 @@ S start variable, S is a member of V, <program>
 
 <false> : false
 
+<SEMICOLON> : ;
+
 //end of lexemes
 
 // program start
@@ -35,25 +37,22 @@ S start variable, S is a member of V, <program>
               | <stmt_list> <stmt>
 
 <stmt> ::= <assignment_stmt> SEMICOLON
-         | <if_stmt> SEMICOLON
-         | <while_stmt> SEMICOLON
-         | <for_stmt> SEMICOLON
+         | <if_stmt> 
+         | <while_stmt>
+         | <for_stmt>
          | <func_call> SEMICOLON
          | <decl_stmt> SEMICOLON
-         | <func_def_stmt> SEMICOLON
+         | <func_def_stmt> 
          | <input_stmt> SEMICOLON
          | <output_stmt> SEMICOLON
+         | <primitive_func> SEMICOLON
+         | <comment_sentence>
+         | <return_stmt> SEMICOLON
 
-// from slides
 <if_stmt> ::= <matched_if> | <unmatched_if>
 
-<matched_if> ::= IF <logic_exp> ELSE_IF <matched_if> else <matched_if>
+<else_stmt> ::= IF <logic_exp> ELSE_IF <matched_if> else <matched_if>
               | <stmt>
-
-<unmatched_if> ::= IF <logic_exp> ELSE_IF <stmt>
-                | IF <logic_exp> ELSE_IF <matched_if> ELSE <unmatched_if>
-
-// slides ends
 
 <for_stmt> ::= FOR LPAR <expr>; <expr>; <expr> RPAR <stmt_list>
 
