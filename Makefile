@@ -8,7 +8,7 @@ all: parser clean
 
 parser: y.tab.o lex.yy.o
 	$(CC) -o parser y.tab.o lex.yy.o
-	./parser < example_code_m.txt
+	./parser < example_code.txt
 
 
 lex.yy.o: lex.yy.c y.tab.h

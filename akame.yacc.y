@@ -132,6 +132,9 @@ logic_exp:
                 | BOOLEAN NOT_EQUAL BOOLEAN
                 | IDENTIFIER IS_EQUAL IDENTIFIER
                 | IDENTIFIER NOT_EQUAL IDENTIFIER
+                | IDENTIFIER NOT_EQUAL INTEGER
+                | TRUE
+                | FALSE
 
 else_stmt:
                 ELSE LBRACKET stmt_list RBRACKET
@@ -178,6 +181,9 @@ decl_stmt:      type_ident ident_list
 assignment_stmt:
 		decl_stmt ASSIGNMENT ident
 		| decl_stmt ASSIGNMENT INTEGER
+        | decl_stmt ASSIGNMENT FLOAT
+		| decl_stmt ASSIGNMENT TRUE
+		| decl_stmt ASSIGNMENT FALSE
 
 
 

@@ -1,55 +1,48 @@
-#this is a comment
 
-bool operationExample() {
-    for( int i = 0; i < 15; i++ ) {
-        double a = 5.2;
-        float b = 5.35;
-        bool x = true;
-        if( a == b ) {
-            print("a == b");
-            x = :!x;
-        } elif {
-            print( a - b );
-            print("FUNCTION");
-            return x;
-        }
+bool operationExample(int a) {
+
+    int c, d, e;
+    float a = 5.2;
+    float b = 5.35;
+    for( int i = 2; i < 5 ) {
+        output("i");
     }
+
+    bool e;
+
+    i.toggleCamera();
+    input(e);
+
+    return e;
+
 }
 
-int sum(int a, int b) {
-    int c = a + b;
-    return c;
-}
-
-#if temp is higher than 90, output warning message
-void overheat( int temp ) {
+#"if temp is higher than 90, output warning message"#
+int overheat( int temp ) {
     if( temp > 90 ) {
-        print("HIGH TEMP WARNING!");
-        print("Current Temperature: " + temp );
+        output("HIGH TEMP WARNING!");
+    } else {
+        output("girince isiniyorsun");
     }
+    return temp;
 }
 
-void printIncl( int incl ) {
-    print("Current Inclination: " + incl );
-}
-
-void main() {
-
-    connect(); #connect to the server via built-in function
-
-    int temp;
-    int incl;
-
-    int a = 5;
-    int b = 3;
-    int c = sum(a, b);
-
-    #check for temp
-    while( true ) {
-        temp = readTemp();
-        incl = readInclination();
-        overheat(temp);
-        printIncl();
+#"check temp"#
+while( true ) {
+    a.readTemp();
+    int temp = a;
+    int temp2 = temp;
+    b.readInclination();
+    int incl = b;
+    a.toggleCamera();
+    if( temp == temp2 ) {
+        while( incl != 0 ) {
+            output("ucuyor valla");
+        }
+    } else {
+        while( incl > 1000 ) {
+            output("goklerin fatihi");
+        }
     }
 
 }
