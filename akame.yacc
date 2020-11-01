@@ -101,12 +101,10 @@ stmt:
                 | output_stmt SEMICOLON
 
 //statements:
-/*
 assignment_stmt:
                 ident_list IS_EQUAL expr
                 | ident_list IS_EQUAL func_call
                 | ident_list IS_EQUAL primitive_func
-
 
 if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
             	//| IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
@@ -114,16 +112,18 @@ if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
 
 else_stmt:
                 ELSE LBRACKET stmt_list RBRACKET
-*/
 
+/*
 if_stmt:        matched_if
                 | unmatched_if
 
-matched_if:     IF logic_exp ELSE_IF matched_if ELSE matched_if
-                | stmt
+matched_if:     IF LPAR logic_exp RPAR ELSE_IF matched_if ELSE matched_if
+                | stmt_list
 
-unmatched_if:   IF logic_exp ELSE_IF stmt
-                | IF logic_exp ELSE_IF matched_if ELSE unmatched_if
+unmatched_if:   IF LPAR logic_exp RPAR ELSE_IF stmt_list
+                | IF LPAR logic_exp RPAR ELSE_IF matched_if ELSE unmatched_if
+*/
+
 
 while_stmt:     WHILE LPAR expr RPAR stmt_list
                 | WHILE LPAR logic_exp RPAR stmt_list
@@ -177,6 +177,28 @@ primitive_func: ident DOT READINC LPAR RPAR SEMICOLON
 
 
 //expressions
+logic_exp:
+                // 4 < 89
+                // true && false
+                // a >= b
+                INTEGER LESS INTEGER
+                |INTEGER GREATER INTEGER
+                |INTEGER LTE INTEGER
+                |INTEGER GTE INTEGER
+                |IDENTIFIER LESS IDENTIFIER
+                |IDENTIFIER GREATER IDENTIFIER
+                |IDENTIFIER LTE IDENTIFIER
+                |IDENTIFIER GTE IDENTIFIER
+                |IDENTIFIER AND IDENTIFIER
+                |IDENTIFIER OR IDENTIFIER
+                |BOOLEAN AND BOOLEAN
+                |BOOLEAN OR BOOLEAN
+                |BOOLEAN IS_EQUAL BOOLEAN
+                |BOOLEAN NOT_EQUAL BOOLEAN
+                |IDENTIFIER IS_EQUAL IDENTIFIER
+                |IDENTIFIER NOT_EQUAL IDENTIFIER
+
+/*
 logic_exp:      logic_exp_or
                 | logic_exp IS_EQUAL logic_exp_or
                 | logic_exp NOT_EQUAL logic_exp_or
@@ -194,6 +216,7 @@ logic_exp_and:  logic_exp_and AND logic_exp_not
 logic_exp_not:   NOT logic_exp_p | logic_exp_p
 
 logic_exp_p:     LPAR logic_exp RPAR | BOOLEAN
+*/
 
 expr:            expr PLUS term
                 | expr MINUS term
