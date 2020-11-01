@@ -156,6 +156,10 @@ type_ident:     INT_TYPE
 ident_list:     ident
                 | ident_list COMMA ident
 
+ident:
+                ALPHANUMERIC
+                | ident ALPHANUMERIC
+
 
 primitive_func: ident DOT READINC LPAR RPAR SEMICOLON
                 | ident DOT READALT LPAR RPAR SEMICOLON
@@ -227,16 +231,6 @@ idc:            ident
                 | LPAR expr RPAR
 
 //end of expressions
-
-
-ident_list:
-                | ident COMMA ident_list
-                ident
-
-
-ident:
-                ALPHANUMERIC
-                | ident ALPHANUMERIC
 
 
 
