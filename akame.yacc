@@ -103,6 +103,15 @@ assignment_stmt:
                 | ident_list IS_EQUAL primitive_func
 
 
+if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
+            	//| IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
+            	| IF LPAR func_call RPAR LBRACKET stmt_list RBRACKET else_stmt
+
+else_stmt:
+                ELSE LBRACKET stmt_list RBRACKET
+
+/*
+eski if'ler:
 if_stmt:        matched_if
                 | unmatched_if
 
@@ -111,8 +120,12 @@ matched_if:     IF logic_exp ELSE_IF matched_if ELSE matched_if
 
 unmatched_if:   IF logic_exp ELSE_IF stmt
                 | IF logic_exp ELSE_IF matched_if ELSE unmatched_if
+*/
 
-while_stmt:     WHILE LPAR expr|logic_exp|func_call|primitive_func RPAR stmt_list //check syntax here!
+while_stmt:     WHILE LPAR expr RPAR stmt_list
+                | WHILE LPAR logic_exp RPAR stmt_list
+                | WHILE LPAR func_call RPAR stmt_list
+                | WHILE LPAR primitive_func RPAR stmt_list
 
 for_stmt:       FOR LPAR expr SEMICOLON expr SEMICOLON expr RPAR stmt_list
 
@@ -128,7 +141,11 @@ func_def_stmt:  type_ident func_call stmt_list
 
 input_stmt:     INPUT LPAR ident RPAR
 
-output_stmt:    OUTPUT LPAR STRING|ident|func_call|primitive_func RPAR // ******** burayı da kontrol et ********
+output_stmt:    OUTPUT LPAR STRING RPAR
+                | OUTPUT LPAR ident RPAR
+                | OUTPUT LPAR func_call RPAR
+                | OUTPUT LPAR primitive_func RPAR
+
 //end of statements
 
 type_ident:     INT_TYPE
@@ -180,7 +197,7 @@ term:            term MULT term
                 | term DIV factor
                 | factor
 
-factor:         idc EXPONENT factor 
+factor:         idc EXPONENT factor
                 |  idc
 
 idc:            ident
@@ -191,8 +208,9 @@ idc:            ident
 
 
 ident_list:
+                | ident COMMA ident_list
                 ident
-                | ident ident_list
+
 
 ident:
                 ALPHANUMERIC
