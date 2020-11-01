@@ -2,6 +2,10 @@
 
 %{
     #include <stdio.h>
+    #include <stdlib.h>
+    int yylex(void);
+    void yyerror(char* s);
+    extern int yylineno;
 %}
 
 %token STRING
@@ -227,7 +231,7 @@ factor:         idc EXPONENT factor
                 |  idc
 
 idc:            ident
-                | INTEGER
+                //| <int_const>
                 | LPAR expr RPAR
 
 //end of expressions
@@ -237,10 +241,18 @@ idc:            ident
 %%
 
 #include "lex.yy.c"
-int lineno;
 
-main() {
-  return yyparse();
+void yyerror(char *s) {
+	fprintf(stdout, "line %d: %s\n", yylineno,s);
 }
 
-yyerror( char *s ) { fprintf( stderr, "%s\n", s); };
+int main(void) {
+
+  yyparse();
+  if( yynerrs < 1 ) {
+    printf("Parsing SUCCESSFUL.\n");
+  } else {
+    printf("Parsing UNSUCCESSFUL.\n");
+  }
+  return 0;
+}

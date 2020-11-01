@@ -128,7 +128,7 @@ S start variable, S is a member of V, <program>
           |  <idc>
 
 <idc> ::= <ident> # *****************KONTROL ET***
-        | INTEGER
+        //| <int_const>
         | LPAR <expr> RPAR
 
 // program end

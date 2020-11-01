@@ -1,6 +1,6 @@
 %{
 	#include <stdio.h>
-	//#include "y.tab.h"
+	#include "y.tab.h"
 	void yyerror(char *);
 %}
 
@@ -72,68 +72,267 @@ FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
 
 %option yylineno
 %%
-{TRUE}						printf("TRUE ");
-{FALSE}						printf("FALSE ");
-{NOT}						printf("NOT ");
-{INT_TYPE}					printf("INT_TYPE ");
-{FLOAT_TYPE}				printf("FLOAT_TYPE ");
-{DOUBLE_TYPE}				printf("DOUBLE_TYPE ");
-{VOID}						printf("VOID ");
-{BOOLEAN_TYPE}				printf("BOOLEAN_TYPE ");
-{READINC}					printf("READINC ");
-{READTS}					printf("READTS ");
-{READALT}					printf("READINC ");
-{READTEMP}					printf("READTEMP ");
-{READACCEL}					printf("READACCEL ");
-{TOGGLECAMERA}				printf("TOGGLECAMERA ");
-{TAKEPIC}					printf("TAKEPIC ");
-{ASSIGNMENT} 		  	 	printf("ASSIGNMENT ");
+{TRUE}						{
+								//printf("TRUE ");
+				               	return TRUE;
+				            }
+
+{FALSE}						{
+								//printf("FALSE ");
+				               	return FALSE;
+				            }
+
+{NOT}						{
+								//printf("NOT ");
+				               	return NOT;
+				            }
+
+{INT_TYPE}					{
+								//printf("INT_TYPE ");
+				               	return INT_TYPE;
+				            }
+
+{FLOAT_TYPE}				{
+								//printf("FLOAT_TYPE ");
+				               	return FLOAT_TYPE;
+				            }
+
+{DOUBLE_TYPE}				{
+								//printf("DOUBLE_TYPE ");
+				               	return DOUBLE_TYPE;
+				            }
+
+{VOID}						{
+								//printf("VOID ");
+				               	return VOID;
+				            }
+
+{BOOLEAN_TYPE}				{
+								//printf("BOOLEAN_TYPE ");
+				               	return BOOLEAN_TYPE;
+				            }
+
+{READINC}					{
+								//printf("READINC ");
+				               	return READINC;
+				            }
+
+{READTS}					{
+								//printf("READTS ");
+				               	return READTS;
+				            }
+
+{READALT}					{
+								//printf("READALT ");
+				               	return READALT;
+				            }
+
+{READTEMP}					{
+								//printf("READTEMP ");
+				               	return READTEMP;
+				            }
+
+{READACCEL}					{
+								//printf("READACCEL ");
+				               	return READACCEL;
+				            }
+
+{TOGGLECAMERA}				{
+								//printf("TOGGLECAMERA ");
+				               	return TOGGLECAMERA;
+				            }
+
+{TAKEPIC}					{
+								//printf("TAKEPIC ");
+				               	return TAKEPIC;
+				            }
+
+{ASSIGNMENT} 		  	 	{
+								//printf("ASSIGNMENT ");
+				               	return ASSIGNMENT;
+				            }
+
 {NEWLINE}		         	{
-								printf("\n ");
-				               	//return NEWLINE;
+								//printf("\n ");
+				               	return NEWLINE;
 				             }
-{IS_EQUAL} 					printf("IS_EQUAL ");
-{MINUS} 					printf("MINUS ");
-{PLUS}						printf("PLUS ");
-{IF} 						printf("IF ");
-{ELSE} 						printf("ELSE ");
-{ELSE_IF}	 				printf("ELSE_IF ");
-{COMMENT} 					printf("COMMENT\n ");
-{HASHTAG}					printf("HASHTAG ");
-{INTEGER}					printf("INTEGER ");
-{FLOAT}						printf("FLOAT ");
-{LPAR}						printf("LPAR ");
-{RPAR}						printf("RPAR ");
-{LBRACKET}		 	 		printf("LBRACKET ");
-{RBRACKET}				   	printf("RBRACKET ");
-{FOR} 				 		printf("FOR ");
-{DO}					 	printf("DO ");
-{WHILE}				 	 	printf("WHILE ");
-{GREATER}					printf("GREATER ");
-{LESS}					 	printf("LESS ");
-{GTE}					 	printf("GTE ");
-{LTE}					 	printf("LTE ");
-{NOT_EQUAL}					printf("NOT_EQUAL ");
-{SEMICOLON}					printf("SEMICOLON ");
-{DOT}					 	printf("DOT ");
-{COMMA}					 	printf("COMMA ");
-{COLON}					 	printf("COLON ");
-{MULT}					 	printf("MULT ");
-{DIV}					 	printf("DIV ");
-{OR}				 		printf("OR ");
-{AND}				 		printf("AND ");
-{RETURN}				 	printf("RETURN ");
-{PRINT}				 		printf("PRINT ");
-{MAIN}						printf("MAIN ");
-{IDENTIFIER}				printf("IDENTIFIER ");
-{STRING}					printf("STRING ");
+
+{IS_EQUAL} 					{
+								//printf("IS_EQUAL ");
+				               	return IS_EQUAL;
+				            }
+
+{MINUS} 					{
+								//printf("MINUS ");
+				               	return MINUS;
+				            }
+
+{PLUS}						{
+								//printf("PLUS ");
+				               	return PLUS;
+				            }
+
+{IF} 						{
+								//printf("IF ");
+				               	return IF;
+				            }
+
+{ELSE} 						{
+								//printf("ELSE ");
+				               	return ELSE;
+				            }
+
+{ELSE_IF}	 				{
+								//printf("ELSE_IF ");
+				               	return ELSE_IF;
+				            }
+
+{COMMENT} 					{
+								//printf("COMMENT ");
+				               	return COMMENT;
+				            }
+
+{HASHTAG}					{
+								//printf("HASHTAG ");
+				               	return HASHTAG;
+				            }
+
+{INTEGER}					{
+								//printf("INTEGER ");
+				               	return INTEGER;
+				            }
+
+{FLOAT}						{
+								//printf("FLOAT ");
+				               	return FLOAT;
+				            }
+
+{LPAR}						{
+								//printf("LPAR ");
+				               	return LPAR;
+				            }
+
+{RPAR}						{
+								//printf("RPAR ");
+				               	return RPAR;
+				            }
+
+{LBRACKET}		 	 		{
+								//printf("LBRACKET ");
+				               	return LBRACKET;
+				            }
+
+{RBRACKET}				   	{
+								//printf("RBRACKET ");
+				               	return RBRACKET;
+				            }
+
+{FOR} 				 		{
+								//printf("FOR ");
+				               	return FOR;
+				            }
+
+{DO}					 	{
+								//printf("DO ");
+				               	return DO;
+				            }
+
+{WHILE}				 	 	{
+								//printf("WHILE ");
+				               	return WHILE;
+				            }
+
+{GREATER}					{
+								//printf("GREATER ");
+				               	return GREATER;
+				            }
+
+{LESS}					 	{
+								//printf("LESS ");
+				               	return LESS;
+				            }
+
+{GTE}					 	{
+								//printf("GTE ");
+				               	return GTE;
+				            }
+
+{LTE}					 	{
+								//printf("LTE ");
+				               	return LTE;
+				            }
+
+{NOT_EQUAL}					{
+								//printf("NOT_EQUAL ");
+				               	return NOT_EQUAL;
+				            }
+
+{SEMICOLON}					{
+								//printf("SEMICOLON ");
+				               	return SEMICOLON;
+				            }
+
+{DOT}					 	{
+								//printf("DOT ");
+				               	return DOT;
+				            }
+
+{COMMA}					 	{
+								//printf("COMMA ");
+				               	return COMMA;
+				            }
+
+{COLON}					 	{
+								//printf("COLON ");
+				               	return COLON;
+				            }
+
+{MULT}					 	{
+								//printf("MULT ");
+				               	return MULT;
+				            }
+
+{DIV}					 	{
+								//printf("DIV ");
+				               	return DIV;
+				            }
+
+{OR}				 		{
+								//printf("OR ");
+				               	return OR;
+				            }
+
+{AND}				 		{
+								//printf("AND ");
+				               	return AND;
+				            }
+
+{RETURN}				 	{
+								//printf("RETURN ");
+				               	return RETURN;
+				            }
+
+{PRINT}				 		{
+								//printf("PRINT ");
+				               	return PRINT;
+				            }
+
+{MAIN}						{
+								//printf("MAIN ");
+				               	return MAIN;
+				            }
+
+{IDENTIFIER}				{
+								//printf("IDENTIFIER ");
+				               	return IDENTIFIER;
+				            }
+
+{STRING}					{
+								//printf("STRING ");
+				               	return STRING;
+				            }
 %%
 
 int yywrap(void) {
 	return 1;
-}
-
-int main(void) {
-	yylex();
-	return 0;
 }
