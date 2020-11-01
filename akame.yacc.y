@@ -113,18 +113,6 @@ if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
 else_stmt:
                 ELSE LBRACKET stmt_list RBRACKET
 
-/*
-if_stmt:        matched_if
-                | unmatched_if
-
-matched_if:     IF LPAR logic_exp RPAR ELSE_IF matched_if ELSE matched_if
-                | stmt_list
-
-unmatched_if:   IF LPAR logic_exp RPAR ELSE_IF stmt_list
-                | IF LPAR logic_exp RPAR ELSE_IF matched_if ELSE unmatched_if
-*/
-
-
 while_stmt:     WHILE LPAR expr RPAR stmt_list
                 | WHILE LPAR logic_exp RPAR stmt_list
                 | WHILE LPAR func_call RPAR stmt_list
@@ -174,8 +162,6 @@ primitive_func: ident DOT READINC LPAR RPAR SEMICOLON
                 | ident DOT CONNECT LPAR RPAR SEMICOLON
 //end of statements
 
-
-
 //expressions
 logic_exp:
                 // 4 < 89
@@ -197,26 +183,6 @@ logic_exp:
                 |BOOLEAN NOT_EQUAL BOOLEAN
                 |IDENTIFIER IS_EQUAL IDENTIFIER
                 |IDENTIFIER NOT_EQUAL IDENTIFIER
-
-/*
-logic_exp:      logic_exp_or
-                | logic_exp IS_EQUAL logic_exp_or
-                | logic_exp NOT_EQUAL logic_exp_or
-                | logic_exp GREATER logic_exp_or
-                | logic_exp LESS logic_exp_or
-                | logic_exp GTE logic_exp_or
-                | logic_exp LTE logic_exp_or
-
-logic_exp_or:    logic_exp OR logic_exp_and
-                | logic_exp_and
-
-logic_exp_and:  logic_exp_and AND logic_exp_not
-                | logic_exp_not
-
-logic_exp_not:   NOT logic_exp_p | logic_exp_p
-
-logic_exp_p:     LPAR logic_exp RPAR | BOOLEAN
-*/
 
 expr:            expr PLUS term
                 | expr MINUS term
