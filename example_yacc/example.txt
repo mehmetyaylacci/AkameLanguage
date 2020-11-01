@@ -1,0 +1,553 @@
+%token ASSIGNMENTOP
+%token AND
+%token OR
+%token XOR
+%token ELSE
+%token NOT
+%token IMPLIES
+%token IFF
+%token LP
+%token RP
+%token LB
+%token RB
+%token LSB
+%token RSB
+%token COMMENT
+%token COMMA
+%token ENDSTMT
+%token DIGIT
+%token IF
+%token VAR
+%token DO
+%token WHILE
+%token FOR
+%token RUN
+%token RETURN
+%token CAYYOUT
+%token CAYYIN
+%token BOOLEAN 
+%token INT
+%token STRING
+%token IDENTIFIER
+%token CONSTANT
+%token MAIN
+%token PREDICATE
+%token ARRAY
+
+%start program
+%right ASSIGNMENTOP
+
+%%
+
+//Start Rule
+
+//Program
+program:
+	predicateDeclarations main
+
+main:
+	MAIN LP RP LB stmts RB
+
+predicateDeclarations:
+	predicateDeclarations predicateDeclaration
+	|predicateDeclaration
+
+stmts:
+	stmt
+	|stmts stmt
+
+//Possible statement types
+stmt:
+	matched_stmt
+	|unmatched_stmt
+
+end_stmt:
+	ENDSTMT
+
+matched_stmt:
+	IF LP logical_expression RP matched_stmt ELSE matched_stmt
+	|other_stmt
+
+unmatched_stmt:
+	IF LP logical_expression RP stmt
+    |IF LP logical_expression RP matched_stmt ELSE unmatched_stmt
+
+other_stmt:
+	loop
+	|declaration
+	|init
+	|input_stmt
+	|output_stmt
+	|end_stmt
+	|COMMENT
+	|return_stmt
+
+
+
+//----------------------------------Declerations----------------------------------------------
+declaration:
+	varDeclaration
+	|constantDeclaration
+	|array_declaration
+
+varDeclaration:
+	VAR var_id end_stmt
+
+//-------The value of the constant variables must be instantiated during decleration------------
+
+constantDeclaration:
+	CONSTANT LP constantContent RP ASSIGNMENTOP BOOLEAN end_stmt
+
+constantContent:
+	STRING
+
+
+//----------------------------------Predicate----------------------------------
+//----------------------------------How to declere a predicate----------------------------------
+predicateDeclaration:
+	PREDICATE LP declaration_param_list RP LB predicateBody RB
+
+declaration_param_list:
+	declaration_element
+	|declaration_element COMMA declaration_param_list
+
+declaration_element:
+	VAR var_id
+	|CONSTANT
+
+predicateBody:
+	return_stmt
+	|stmts return_stmt
+
+return_stmt:
+	RETURN logical_expression end_stmt
+
+//----------------------------------How to instantiate a predicate------------------------------------
+predicateInstantiation:
+	RUN PREDICATE LP parameter_list RP
+
+parameter_list:
+	element
+	|element COMMA parameter_list
+
+element:
+	term
+	|BOOLEAN
+
+
+//----------------------------------Initialization----------------------------------------------------
+init:
+	varInitialization
+	|predicateInstantiation
+	|varDecWithInit
+	|array_init
+	|array_dec_init
+	|assign_element
+
+
+
+
+//----------------------------------Array-------------------------------------------------------------
+//-------------------------How to declare a array----------------------------------------------------
+
+array_declaration:
+	VAR ARRAY end_stmt;
+
+//-------------------------How to initialize a array--------------------------------------------------
+array_init:
+	ARRAY ASSIGNMENTOP LB array_parameter_list RB end_stmt
+
+//-------------------------How to declare and initialize a array at the same time---------------------
+
+array_dec_init:
+	VAR ARRAY ASSIGNMENTOP LB array_parameter_list RB end_stmt
+
+array_parameter_list:
+	array_parameter COMMA array_parameter_list
+	|array_parameter
+
+array_parameter:
+	BOOLEAN
+	|var_id
+	|CONSTANT
+
+//-------------------------How to get a array element--------------------------------------------------
+array_element:
+	ARRAY LSB index RSB
+
+index:
+	INT
+	|DIGIT
+//-------------------------How to assign an array element----------------------------------------------
+//-------------------------Logical expression can be true or false-------------------------------------
+assign_element:
+	array_element ASSIGNMENTOP logical_expression end_stmt
+
+//----------------------------------How to initalize a term--------------------------------------------
+varInitialization:
+	var_id ASSIGNMENTOP logical_expression end_stmt
+
+varDecWithInit:
+	VAR var_id ASSIGNMENTOP logical_expression end_stmt
+
+
+//----------------------------------Looping Statements-------------------------------------------------
+loop:
+	while_stmt
+	|for_stmt
+	|doWhile_stmt
+
+while_stmt:
+	WHILE LP logical_expression RP LB stmts RB
+
+for_stmt:
+	FOR LP varDecWithInit logical_expression RP LB stmts RB
+
+doWhile_stmt:
+	DO LB stmts RB WHILE LP logical_expression RP
+
+
+//--------------------------------------Logical expressions----------------------------------------------------
+//The order of the logical expressions are divided according
+//to their presendence
+//Highest to Lowest: Paranthesis Not And Xor OR Implies If and only if
+//Also associativity is applied
+
+//------------------------------logical expression- If and Only If expression------------------------------
+//------------------------------If and only if left assoc------------------------------
+logical_expression:
+	logical_expression IFF primary_expression 
+	|primary_expression
+
+
+//------------------------------Implies expression------------------------------
+//------------------------------Implies right assoc------------------------------
+primary_expression:
+	or_expression IMPLIES primary_expression
+	|or_expression
+
+
+//------------------------------or expression------------------------------
+//------------------------------or left assoc------------------------------
+or_expression:
+	or_expression OR ternary_expression 
+	|ternary_expression
+
+//------------------------------xor expression------------------------------
+//------------------------------xor left assoc------------------------------
+ternary_expression:
+	ternary_expression XOR and_expression
+	|and_expression
+
+//------------------------------and expression------------------------------
+//------------------------------and left assoc------------------------------
+and_expression:
+	and_expression AND not_expression
+	|not_expression
+
+//------------------------------not expression------------------------------
+//------------------------------not is unary------------------------------
+not_expression:
+	NOT p_expression
+	|p_expression
+
+
+//------------------------------paranthesis expression------------------------------
+p_expression:
+	LP logical_expression RP
+	|term
+	|BOOLEAN
+	|predicateInstantiation
+
+//------------------------------A term could either be a variable or a constant------------------------------
+term:
+	var_id
+	|CONSTANT
+//------------------------------A variable identifier is identifier--------------------------------------
+var_id:
+	IDENTIFIER
+//------------------------------Input statement takes a varible and assigns it to the given input-------------
+//------------------------------Since constant assignments must be done during declaration--------------------
+//------------------------------constant cannot assign to a input statement------------------------------
+input_stmt:
+	CAYYIN LP var_id RP end_stmt
+
+//------------------------------Outputs the logical expression between LP and RP------------------------------
+output_stmt:
+	CAYYOUT LP logical_expression RP end_stmt
+
+%%
+
+
+// ---Do the Token assignments below----
+%token MAIN
+%token RETURN
+%token PASS
+%token IF
+%token ELSE 
+%token LP
+%token RP
+%token LB
+%token RB 
+%token COMMA
+%token DOT
+%token INTEGER
+%token COLON
+%token COMMENT_SIGN
+%token ASSING_OP
+%token NEW_KEYWORD
+%token SET
+%token DELETE
+%token BOOLEAN
+%token CARTESIAN
+%token ADD
+%token UNION
+%token IS_SUBSET
+%token CONSOLE_IN
+%token IS_SUPERSET
+%token INTERSECTION
+%token ELEMENT_IN
+%token CONSOLE_OUT
+%token CONTAIN_KEY
+%token WHILE
+%token FOR
+%token FUNCTION
+%token LOOP_ASSIGN_OP
+%token EQUAL
+%token NOT_EQUAL
+%token GREATER_OR_EQUAL
+%token LOWER_OR_EQUAL
+%token GREATER
+%token LOWER
+%token OR
+%token AND
+%token IDENTIFIER
+%token SET_TYPE
+%token END_STMT
+%token SINGLE_QUOTE
+
+//%start program
+%start program
+%right ASSIGN_OP
+
+%%
+
+//Start Rule
+
+//Program
+program:
+	main
+
+main:
+	MAIN LP RP LB statements RB
+
+statements: 
+	statement
+	|statements statement
+
+statement:
+	comment_line 
+	|expr END_STMT
+	|loops 
+	|funct_dec
+	|conditional_stmt
+
+
+// ****** Comment Line *****
+comment_line:
+	COMMENT_SIGN sentence COMMENT_SIGN
+
+
+sentence:
+	IDENTIFIER sentence
+	|IDENTIFIER	
+	
+// ***** DECLERATIONS *****
+expr:
+	element_expr
+	|int_expr
+	|bool_expr
+	|set_expr_list
+	| set_initilize
+	|func_call_dec
+	| identifier_dec
+identifier_dec:
+	IDENTIFIER ASSING_OP IDENTIFIER
+set_initilize:
+	SET_TYPE ASSING_OP set_expr
+func_call_dec:
+	IDENTIFIER ASSING_OP funct_call
+	|SET_TYPE ASSING_OP funct_call
+	|funct_call
+
+element:
+	SINGLE_QUOTE IDENTIFIER SINGLE_QUOTE
+element_expr:
+	IDENTIFIER ASSING_OP element
+int_expr:
+	IDENTIFIER ASSING_OP INTEGER
+bool_expr:
+	IDENTIFIER ASSING_OP BOOLEAN
+	|IDENTIFIER ASSING_OP set_logical_expr
+
+set_expr_list:
+	set_delete_op
+	|set_add_op
+	|input_element_expr
+	|output_expr
+
+
+set_expr:
+	set_init
+	|set_union_op
+	|set_intersection_op
+	|cartesian_expr
+	|input_set_expr
+
+set_logical_expr:
+	set_contain_expr
+	|superset_expr
+	|subset_expr
+	
+
+
+
+// ***** SETS *****
+set_add_op:
+	// $set.add(identifier)
+	SET_TYPE DOT ADD LP IDENTIFIER RP
+	|SET_TYPE DOT ADD LP element RP
+	|SET_TYPE DOT ADD LP INTEGER RP
+	|SET_TYPE DOT ADD LP SET_TYPE RP
+
+set_delete_op:
+	// $set.delete();
+	SET_TYPE DOT DELETE LP RP
+
+set_union_op:
+	//  
+	SET_TYPE DOT UNION LP SET_TYPE RP
+set_init: 
+	// $set <== NEW_KEYWORD SET
+	NEW_KEYWORD SET
+set_intersection_op:
+	// $set1<==$set2.intersection($set3);
+	SET_TYPE DOT INTERSECTION LP SET_TYPE RP
+cartesian_expr:
+	// $set1<==$set2.cartesian($set2,$set3);
+	SET_TYPE DOT CARTESIAN LP SET_TYPE RP
+	
+
+set_contain_expr: 
+	SET_TYPE DOT CONTAIN_KEY LP IDENTIFIER RP
+	|SET_TYPE DOT CONTAIN_KEY LP element RP
+	|SET_TYPE DOT CONTAIN_KEY LP INTEGER RP
+	|SET_TYPE DOT CONTAIN_KEY LP SET_TYPE RP
+
+
+superset_expr:
+	// false <== $set.isSuperset($set)
+	SET_TYPE DOT IS_SUPERSET LP SET_TYPE RP
+subset_expr:
+	// true <== $set.isSubset($set)
+	SET_TYPE DOT IS_SUBSET LP SET_TYPE RP
+
+// ******* LOOPS *********
+loops:
+	while_stmt
+	|for_stmt 
+
+while_stmt: 
+	// while(logical_expr){block_stmts}
+	WHILE LP logical_expr RP LB block_stmts RB
+	|WHILE LP set_logical_expr RP LB block_stmts RB
+	|WHILE LP funct_call RP LB block_stmts RB
+
+
+for_stmt: 
+	// for(i=12:200){block_stmts}
+	FOR LP for_expr RP LB block_stmts RB  
+
+for_expr:
+	IDENTIFIER LOOP_ASSIGN_OP INTEGER COLON INTEGER
+
+block_stmts:
+	// pass;
+	// return;
+	PASS END_STMT
+	|statements RETURN args_type END_STMT
+	|statements 
+
+logical_expr: 
+	// 4 < 89
+	// true && false
+	// a >= b
+	INTEGER LOWER INTEGER
+	|INTEGER GREATER INTEGER 
+	|INTEGER LOWER_OR_EQUAL INTEGER 
+	|INTEGER GREATER_OR_EQUAL INTEGER 
+	|IDENTIFIER LOWER IDENTIFIER
+	|IDENTIFIER GREATER IDENTIFIER
+	|IDENTIFIER LOWER_OR_EQUAL IDENTIFIER
+	|IDENTIFIER GREATER_OR_EQUAL IDENTIFIER
+	|IDENTIFIER AND IDENTIFIER
+	|IDENTIFIER OR IDENTIFIER
+	|BOOLEAN AND BOOLEAN
+	|BOOLEAN OR BOOLEAN
+	|BOOLEAN EQUAL BOOLEAN
+	|BOOLEAN NOT_EQUAL BOOLEAN
+	|IDENTIFIER EQUAL IDENTIFIER
+	|IDENTIFIER NOT_EQUAL IDENTIFIER
+
+//********* Confitional Statement ******//
+conditional_stmt: 
+	if_stmt
+
+if_stmt:
+	IF LP logical_expr RP LB block_stmts RB else_stmt
+	|IF LP set_logical_expr RP LB block_stmts RB else_stmt
+	|IF LP funct_call RP LB block_stmts RB else_stmt
+
+	
+ 
+
+else_stmt:
+	ELSE LB block_stmts RB
+
+//******** FUnction ********//
+funct_dec:
+	FUNCTION IDENTIFIER LP args RP LB block_stmts RB
+funct_call:
+	IDENTIFIER LP args RP  
+
+args:
+	IDENTIFIER
+	|
+	|composite_args
+composite_args:
+	args_type COMMA composite_args
+	|args_type
+
+args_type:
+	IDENTIFIER
+	|BOOLEAN
+	|INTEGER
+	|element
+	|SET_TYPE
+
+	
+// ******* INPUTS ********
+input_set_expr:
+	// $set1 <== inputElements();
+	CONSOLE_IN LP RP
+	
+input_element_expr:
+ 	// $set1.input();
+	SET_TYPE DOT ELEMENT_IN LP RP
+
+// ******* OUTPUTS ********
+output_expr:
+ 	// $set1.print();
+	SET_TYPE DOT CONSOLE_OUT LP RP
+
+%%

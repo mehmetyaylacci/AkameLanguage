@@ -84,9 +84,6 @@ main:
     MAIN LPAR RPAR LBRACKET stmt_list RBRACKET SEMICOLON
     //| comment_sentence main
 
-stmt_inside: return_stmt SEMICOLON
-                | stmt
-
 stmt_list:    stmt
                 | stmt_list stmt
 
@@ -96,11 +93,12 @@ stmt:
                 | while_stmt 
                 | for_stmt 
                 | func_call 
-                | decl_stmt
+               // | decl_stmt
                 | func_def_stmt
                 | input_stmt 
                 | output_stmt
                 | comment_sentence
+                | return_stmt
                 
 
 comment_sentence:
@@ -113,7 +111,8 @@ sentence:
 
 //statements:
 assignment_stmt:
-                ident ASSIGNMENT stmt SEMICOLON
+                ident ASSIGNMENT INTEGER SEMICOLON
+                | ident ASSIGNMENT IDENTIFIER_S SEMICOLON
                 | ident ASSIGNMENT func_call SEMICOLON
                 | ident ASSIGNMENT primitive_func SEMICOLON
 
@@ -129,9 +128,9 @@ while_stmt:     WHILE LPAR stmt RPAR stmt_list
                 | WHILE LPAR func_call RPAR stmt_list
                 | WHILE LPAR primitive_func RPAR stmt_list
 
-for_stmt:       FOR LPAR assignment_stmt SEMICOLON logic_exp SEMICOLON expr RPAR stmt_list
+for_stmt:       FOR LPAR assignment_stmt SEMICOLON logic_exp RPAR LBRACKET stmt_list RBRACKET
 
-return_stmt:    RETURN stmt SEMICOLON
+return_stmt:    RETURN stmt_list SEMICOLON
 
 func_call:      ident LPAR args RPAR SEMICOLON
 
@@ -139,10 +138,10 @@ args:           ident
                 | ident COMMA args
                 | "" //empty
 
-decl_stmt:      ident_list SEMICOLON
+//decl_stmt:      ident_list SEMICOLON
 
 // func_def_stmt:  func_call stmt_list
-func_def_stmt:  func_call LP args RP LBRACKET stmt_inside RBRACKET SEMICOLON
+func_def_stmt:  func_call LP args RP LBRACKET stmt_list RBRACKET SEMICOLON
 
 input_stmt:     INPUT LPAR ident RPAR SEMICOLON
 
