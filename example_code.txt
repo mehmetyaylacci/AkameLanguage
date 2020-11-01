@@ -22,7 +22,7 @@ int overheat( int temp ) {
     if( temp > 90 ) {
         output("HIGH TEMP WARNING!");
     } else {
-        output("girince isiniyorsun");
+        output("soguk");
     }
     return temp;
 }
