@@ -81,25 +81,27 @@ program:
         main
 
 main:
-    MAIN LPAR RPAR LBRACKET stmt_list RBRACKET
-    | comment_sentence main
+    MAIN LPAR RPAR LBRACKET stmt_list RBRACKET SEMICOLON
+    //| comment_sentence main
 
-stmt_list:
-                stmt
+stmt_inside: return_stmt SEMICOLON
+                | stmt
+
+stmt_list:    stmt
                 | stmt_list stmt
 
 stmt:
-                assignment_stmt SEMICOLON
-                | if_stmt SEMICOLON
-                | while_stmt SEMICOLON
-                | for_stmt SEMICOLON
-                | func_call SEMICOLON
-                | decl_stmt SEMICOLON
-                | func_def_stmt SEMICOLON
-                | input_stmt SEMICOLON
-                | output_stmt SEMICOLON
+                assignment_stmt
+                | if_stmt 
+                | while_stmt 
+                | for_stmt 
+                | func_call 
+                | decl_stmt
+                | func_def_stmt
+                | input_stmt 
+                | output_stmt
                 | comment_sentence
-                | return_stmt SEMICOLON
+                
 
 comment_sentence:
 	COMMENT sentence COMMENT
@@ -111,9 +113,9 @@ sentence:
 
 //statements:
 assignment_stmt:
-                type_ident ASSIGNMENT expr SEMICOLON
-                | type_ident ASSIGNMENT func_call SEMICOLON
-                | type_ident ASSIGNMENT primitive_func SEMICOLON
+                ident ASSIGNMENT stmt SEMICOLON
+                | ident ASSIGNMENT func_call SEMICOLON
+                | ident ASSIGNMENT primitive_func SEMICOLON
 
 if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
             	//| IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
@@ -122,40 +124,34 @@ if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
 else_stmt:
                 ELSE LBRACKET stmt_list RBRACKET
 
-while_stmt:     WHILE LPAR expr RPAR stmt_list
+while_stmt:     WHILE LPAR stmt RPAR stmt_list
                 | WHILE LPAR logic_exp RPAR stmt_list
                 | WHILE LPAR func_call RPAR stmt_list
                 | WHILE LPAR primitive_func RPAR stmt_list
 
-for_stmt:       FOR LPAR expr SEMICOLON expr SEMICOLON expr RPAR stmt_list
+for_stmt:       FOR LPAR assignment_stmt SEMICOLON logic_exp SEMICOLON expr RPAR stmt_list
 
-// amb diyor??
-return_stmt:    RETURN expr SEMICOLON
+return_stmt:    RETURN stmt SEMICOLON
 
-func_call:      ident LPAR args RPAR
+func_call:      ident LPAR args RPAR SEMICOLON
 
-args:           type_ident ident
-                | type_ident ident COMMA args
+args:           ident
+                | ident COMMA args
                 | "" //empty
 
-decl_stmt:      type_ident ident_list
+decl_stmt:      ident_list SEMICOLON
 
-// func_def_stmt:  type_ident func_call stmt_list
-func_def_stmt:  type_ident func_call LBRACKET stmt_list RBRACKET
+// func_def_stmt:  func_call stmt_list
+func_def_stmt:  func_call LP args RP LBRACKET stmt_inside RBRACKET SEMICOLON
 
-input_stmt:     INPUT LPAR ident RPAR
+input_stmt:     INPUT LPAR ident RPAR SEMICOLON
 
-output_stmt:    OUTPUT LPAR STRING RPAR
-                | OUTPUT LPAR ident RPAR
-                | OUTPUT LPAR func_call RPAR
-                | OUTPUT LPAR primitive_func RPAR
+output_stmt:    OUTPUT LPAR STRING RPAR SEMICOLON
+                | OUTPUT LPAR ident RPAR SEMICOLON
+                | OUTPUT LPAR func_call RPAR SEMICOLON
+                | OUTPUT LPAR primitive_func RPAR SEMICOLON
 
 //end of statements
-
-type_ident:     INT_TYPE
-                | FLOAT_TYPE
-                | CHAR_TYPE
-                | VOID
 
 ident_list:     ident
                 | ident_list COMMA ident
@@ -196,21 +192,6 @@ logic_exp:
                 | BOOLEAN NOT_EQUAL BOOLEAN
                 | IDENTIFIER IS_EQUAL IDENTIFIER
                 | IDENTIFIER NOT_EQUAL IDENTIFIER
-
-expr:            expr PLUS term
-                | expr MINUS term
-                | term
-
-term:            term MULT factor
-                | term DIV factor
-                | factor
-
-factor:         idc EXPONENT factor
-                |  idc
-
-idc:            ident
-                //| <int_const>
-                | LPAR expr RPAR
 
 //end of expressions
 
