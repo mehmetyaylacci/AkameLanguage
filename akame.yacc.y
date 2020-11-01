@@ -1,5 +1,3 @@
-/* calculator.y */
-
 %{
     #include <stdio.h>
     #include <stdlib.h>
@@ -183,21 +181,21 @@ logic_exp:
                 // true && false
                 // a >= b
                 INTEGER LESS INTEGER
-                |INTEGER GREATER INTEGER
-                |INTEGER LTE INTEGER
-                |INTEGER GTE INTEGER
-                |IDENTIFIER LESS IDENTIFIER
-                |IDENTIFIER GREATER IDENTIFIER
-                |IDENTIFIER LTE IDENTIFIER
-                |IDENTIFIER GTE IDENTIFIER
-                |IDENTIFIER AND IDENTIFIER
-                |IDENTIFIER OR IDENTIFIER
-                |BOOLEAN AND BOOLEAN
-                |BOOLEAN OR BOOLEAN
-                |BOOLEAN IS_EQUAL BOOLEAN
-                |BOOLEAN NOT_EQUAL BOOLEAN
-                |IDENTIFIER IS_EQUAL IDENTIFIER
-                |IDENTIFIER NOT_EQUAL IDENTIFIER
+                | INTEGER GREATER INTEGER
+                | INTEGER LTE INTEGER
+                | INTEGER GTE INTEGER
+                | IDENTIFIER LESS IDENTIFIER
+                | IDENTIFIER GREATER IDENTIFIER
+                | IDENTIFIER LTE IDENTIFIER
+                | IDENTIFIER GTE IDENTIFIER
+                | IDENTIFIER AND IDENTIFIER
+                | IDENTIFIER OR IDENTIFIER
+                | BOOLEAN AND BOOLEAN
+                | BOOLEAN OR BOOLEAN
+                | BOOLEAN IS_EQUAL BOOLEAN
+                | BOOLEAN NOT_EQUAL BOOLEAN
+                | IDENTIFIER IS_EQUAL IDENTIFIER
+                | IDENTIFIER NOT_EQUAL IDENTIFIER
 
 expr:            expr PLUS term
                 | expr MINUS term
