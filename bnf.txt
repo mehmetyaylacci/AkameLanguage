@@ -98,37 +98,37 @@ S start variable, S is a member of V, <program>
                     | <ident_list> = <primitive_func>
 
 
-<logic_exp> ::= <logic_exp_or>
-            | <logic_exp> IS_EQUAL <logic_exp_or>
-            | <logic_exp> NOT_EQUAL <logic_exp_or>
-            | <logic_exp> GREATER <logic_exp_or>
-            | <logic_exp> LESS <logic_exp_or>
-            | <logic_exp> GTE <logic_exp_or>
-            | <logic_exp> LTE <logic_exp_or>
-
-<logic_exp_or> ::= <logic_exp> OR <logic_exp_and>
-                | <logic_exp_and>
-
-<logic_exp_and> ::= <logic_exp_and> AND <logic_exp_not>
-                | <logic_exp_not>
-
-<logic_exp_not> ::= NOT <logic_exp_p> | <logic_exp_p>
-
-<logic_exp_p> ::= LPAR <logic_exp> RPAR | BOOLEAN
+<logic_exp> ::=
+                    INTEGER LESS INTEGER
+                    | INTEGER GREATER INTEGER
+                    | INTEGER LTE INTEGER
+                    | INTEGER GTE INTEGER
+                    | IDENTIFIER LESS IDENTIFIER
+                    | IDENTIFIER GREATER IDENTIFIER
+                    | IDENTIFIER LTE IDENTIFIER
+                    | IDENTIFIER GTE IDENTIFIER
+                    | IDENTIFIER AND IDENTIFIER
+                    | IDENTIFIER OR IDENTIFIER
+                    | BOOLEAN AND BOOLEAN
+                    | BOOLEAN OR BOOLEAN
+                    | BOOLEAN IS_EQUAL BOOLEAN
+                    | BOOLEAN NOT_EQUAL BOOLEAN
+                    | IDENTIFIER IS_EQUAL IDENTIFIER
+                    | IDENTIFIER NOT_EQUAL IDENTIFIER
 
 <expr> ::= <expr> PLUS <term>
         | <expr> MINUS <term>
         | <term>
 
-<term> ::= <term> * <term>
-        | <term> / <factor>
+<term> ::= <term> MULT <term>
+        | <term> DIV <factor>
         | <factor>
 
 <factor> ::= <idc> EXPONENT <factor>
           |  <idc>
 
 <idc> ::= <ident> # *****************KONTROL ET***
-        | <int_const>
+        | INTEGER
         | LPAR <expr> RPAR
 
 // program end

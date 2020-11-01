@@ -227,7 +227,7 @@ factor:         idc EXPONENT factor
                 |  idc
 
 idc:            ident
-                //| INT_CONST şimdilik kalsın
+                | INTEGER
                 | LPAR expr RPAR
 
 //end of expressions
