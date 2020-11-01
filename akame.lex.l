@@ -41,6 +41,7 @@ RETURN return
 PRINT print
 NOT :!
 EXPONENT \*\*
+IDENTIFIER_S [A-Za-z][A-Za-z0-9]*
 
 READINC readInclination
 READALT readAlt
@@ -330,6 +331,11 @@ FLOAT [-+]?{DIGIT}*(\.{DIGIT}+)
 {STRING}					{
 								//printf("STRING ");
 				               	return STRING;
+				            }
+
+{IDENTIFIER_S}					{
+								//printf("IDENTIFIER_S ");
+				               	return IDENTIFIER_S;
 				            }
 %%
 

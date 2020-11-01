@@ -45,6 +45,7 @@
 %token PRINT
 %token NOT
 %token EXPONENT
+%token IDENTIFIER_S
 
 %token READINC
 %token READALT
@@ -99,12 +100,20 @@ stmt:
                 | func_def_stmt SEMICOLON
                 | input_stmt SEMICOLON
                 | output_stmt SEMICOLON
+                | comment_sentence
+
+comment_sentence:
+	COMMENT sentence COMMENT
+
+sentence:
+	IDENTIFIER_S sentence
+	|IDENTIFIER_S
 
 //statements:
 assignment_stmt:
-                ident_list IS_EQUAL expr
-                | ident_list IS_EQUAL func_call
-                | ident_list IS_EQUAL primitive_func
+                ident_list ASSIGNMENT expr SEMICOLON
+                | ident_list ASSIGNMENT func_call SEMICOLON
+                | ident_list ASSIGNMENT primitive_func SEMICOLON
 
 if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
             	//| IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt

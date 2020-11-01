@@ -1,4 +1,6 @@
-int sum(a, b) {
+# comment #
+
+int sum(int a, int b) {
     int c = a + b;
     return c;
-}
+};
