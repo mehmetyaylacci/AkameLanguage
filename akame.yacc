@@ -240,8 +240,6 @@ idc:            ident
 
 %%
 
-#include "lex.yy.c"
-
 void yyerror(char *s) {
 	fprintf(stdout, "line %d: %s\n", yylineno,s);
 }
