@@ -43,6 +43,12 @@ S start variable, S is a member of V, <program>
          | <func_def_stmt> SEMICOLON
          | <input_stmt> SEMICOLON
          | <output_stmt> SEMICOLON
+         | <comment_sentence>
+
+<comment_sentence> ::= # <sentence> #
+
+<sentence> ::= IDENTIFIER_S sentence
+         | IDENTIFIER_S
 
 // from slides
 <if_stmt> ::= <matched_if> | <unmatched_if>

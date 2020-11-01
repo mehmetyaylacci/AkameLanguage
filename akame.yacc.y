@@ -137,7 +137,8 @@ args:           type_ident ident
 
 decl_stmt:      type_ident ident_list
 
-func_def_stmt:  type_ident func_call stmt_list
+// func_def_stmt:  type_ident func_call stmt_list
+func_def_stmt:  type_ident func_call LBRACKET stmt_list RBRACKET
 
 input_stmt:     INPUT LPAR ident RPAR
 
