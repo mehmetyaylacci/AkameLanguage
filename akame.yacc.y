@@ -1,5 +1,3 @@
-/* calculator.y */
-
 %{
     #include <stdio.h>
     #include <stdlib.h>
@@ -8,9 +6,16 @@
     extern int yylineno;
 %}
 
+
+%token INT_TYPE
+%token FLOAT_TYPE
+%token DOUBLE_TYPE
+%token VOID
+%token BOOLEAN_TYPE
+%token CHAR_TYPE
+
 %token STRING
 %token MAIN
-%token ASSIGNMENT
 %token NEWLINE
 %token IS_EQUAL
 %token MINUS
@@ -45,7 +50,6 @@
 %token PRINT
 %token NOT
 %token EXPONENT
-%token IDENTIFIER_S
 
 %token READINC
 %token READALT
@@ -58,13 +62,6 @@
 %token OUTPUT
 %token CONNECT
 
-%token INT_TYPE
-%token FLOAT_TYPE
-%token DOUBLE_TYPE
-%token VOID
-%token BOOLEAN_TYPE
-%token CHAR_TYPE
-
 %token LOWERCASE
 %token UPPERCASE
 %token TRUE
@@ -74,148 +71,138 @@
 %token IDENTIFIER
 %token INTEGER
 %token FLOAT
+%token OUTPUT
 
-
-%start program
+%right ASSIGNMENT
 %%
 
-program:
-        main
 
-main:
-    MAIN LPAR RPAR LBRACKET stmt_list RBRACKET
+
 
 stmt_list:
                 stmt
                 | stmt_list stmt
 
-
 stmt:
-                assignment_stmt SEMICOLON
-                | if_stmt SEMICOLON
-                | while_stmt SEMICOLON
-                | for_stmt SEMICOLON
-                | func_call SEMICOLON
-                | decl_stmt SEMICOLON
-                | func_def_stmt SEMICOLON
-                | input_stmt SEMICOLON
+                input_stmt SEMICOLON
                 | output_stmt SEMICOLON
-                | comment_sentence
+		| assignment_stmt SEMICOLON
+		| decl_stmt SEMICOLON
+		| while_stmt
+		| for_stmt
+		| func_call SEMICOLON
+		| func_def_stmt
+		| return_stmt SEMICOLON
+		| if_stmt
+		| comment_sentence
+		| primitive_func SEMICOLON
+
+
+primitive_func:   ident DOT READINC LPAR RPAR
+                | ident DOT READALT LPAR RPAR
+                | ident DOT READTEMP LPAR RPAR
+                | ident DOT READACCEL LPAR RPAR
+                | ident DOT TOGGLECAMERA LPAR RPAR
+                | ident DOT TAKEPIC LPAR RPAR
+                | ident DOT READTS LPAR RPAR
+                | ident DOT CONNECT LPAR RPAR
 
 comment_sentence:
-	COMMENT sentence COMMENT
+            	HASHTAG STRING HASHTAG
 
-sentence:
-	IDENTIFIER_S sentence
-	|IDENTIFIER_S
-
-//statements:
-assignment_stmt:
-                ident_list ASSIGNMENT expr SEMICOLON
-                | ident_list ASSIGNMENT func_call SEMICOLON
-                | ident_list ASSIGNMENT primitive_func SEMICOLON
-
-if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
-            	//| IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
-            	| IF LPAR func_call RPAR LBRACKET stmt_list RBRACKET else_stmt
+logic_exp:
+                INTEGER LESS INTEGER
+                | INTEGER GREATER INTEGER
+                | INTEGER LTE INTEGER
+                | INTEGER GTE INTEGER
+                | IDENTIFIER LESS IDENTIFIER
+                | IDENTIFIER GREATER IDENTIFIER
+                | IDENTIFIER LTE IDENTIFIER
+                | IDENTIFIER GTE IDENTIFIER
+                | IDENTIFIER AND IDENTIFIER
+		| IDENTIFIER LESS INTEGER
+                | IDENTIFIER GREATER INTEGER
+                | IDENTIFIER LTE INTEGER
+                | IDENTIFIER GTE INTEGER
+                | IDENTIFIER AND INTEGER
+                | IDENTIFIER OR INTEGER
+                | BOOLEAN AND BOOLEAN
+                | BOOLEAN OR BOOLEAN
+                | BOOLEAN IS_EQUAL BOOLEAN
+                | BOOLEAN NOT_EQUAL BOOLEAN
+                | IDENTIFIER IS_EQUAL IDENTIFIER
+                | IDENTIFIER NOT_EQUAL IDENTIFIER
 
 else_stmt:
                 ELSE LBRACKET stmt_list RBRACKET
 
-while_stmt:     WHILE LPAR expr RPAR stmt_list
-                | WHILE LPAR logic_exp RPAR stmt_list
-                | WHILE LPAR func_call RPAR stmt_list
-                | WHILE LPAR primitive_func RPAR stmt_list
 
-for_stmt:       FOR LPAR expr SEMICOLON expr SEMICOLON expr RPAR stmt_list
+//ekleme yapılabilir
+if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
+            	//| IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
+            	| IF LPAR func_call RPAR LBRACKET stmt_list RBRACKET else_stmt
 
-func_call:      ident LPAR args RPAR
 
 args:           type_ident ident
                 | type_ident ident COMMA args
                 | "" //empty
 
-decl_stmt:      type_ident ident_list
+func_call:      ident LPAR args RPAR
 
-func_def_stmt:  type_ident func_call stmt_list
+return_stmt:	RETURN ident
+
+func_def_stmt:  type_ident func_call LBRACKET stmt_list RBRACKET
+
+
+
+while_stmt:
+                WHILE LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET
+                | WHILE LPAR func_call RPAR LBRACKET stmt_list RBRACKET
+                | WHILE LPAR primitive_func RPAR LBRACKET stmt_list RBRACKET
+
+
+
+//for( int i = 0; i < 5 ) {}
+for_stmt:	FOR LPAR assignment_stmt SEMICOLON logic_exp RPAR LBRACKET stmt_list RBRACKET
+
+output_stmt:    OUTPUT LPAR STRING RPAR
 
 input_stmt:     INPUT LPAR ident RPAR
 
-output_stmt:    OUTPUT LPAR STRING RPAR
-                | OUTPUT LPAR ident RPAR
-                | OUTPUT LPAR func_call RPAR
-                | OUTPUT LPAR primitive_func RPAR
 
-//end of statements
+decl_stmt:      type_ident ident_list
 
-type_ident:     INT_TYPE
-                | FLOAT_TYPE
-                | CHAR_TYPE
-                | VOID
+
+
+
+assignment_stmt:
+		decl_stmt ASSIGNMENT ident
+		| decl_stmt ASSIGNMENT INTEGER
+
+
+
 
 ident_list:     ident
                 | ident_list COMMA ident
 
 ident:
-                ALPHANUMERIC
-                | ident ALPHANUMERIC
+                IDENTIFIER
 
-
-primitive_func: ident DOT READINC LPAR RPAR SEMICOLON
-                | ident DOT READALT LPAR RPAR SEMICOLON
-                | ident DOT READTEMP LPAR RPAR SEMICOLON
-                | ident DOT READACCEL LPAR RPAR SEMICOLON
-                | ident DOT TOGGLECAMERA LPAR RPAR SEMICOLON
-                | ident DOT TAKEPIC LPAR RPAR SEMICOLON
-                | ident DOT READTS LPAR RPAR SEMICOLON
-                | ident DOT CONNECT LPAR RPAR SEMICOLON
-//end of statements
-
-//expressions
-logic_exp:
-                // 4 < 89
-                // true && false
-                // a >= b
-                INTEGER LESS INTEGER
-                |INTEGER GREATER INTEGER
-                |INTEGER LTE INTEGER
-                |INTEGER GTE INTEGER
-                |IDENTIFIER LESS IDENTIFIER
-                |IDENTIFIER GREATER IDENTIFIER
-                |IDENTIFIER LTE IDENTIFIER
-                |IDENTIFIER GTE IDENTIFIER
-                |IDENTIFIER AND IDENTIFIER
-                |IDENTIFIER OR IDENTIFIER
-                |BOOLEAN AND BOOLEAN
-                |BOOLEAN OR BOOLEAN
-                |BOOLEAN IS_EQUAL BOOLEAN
-                |BOOLEAN NOT_EQUAL BOOLEAN
-                |IDENTIFIER IS_EQUAL IDENTIFIER
-                |IDENTIFIER NOT_EQUAL IDENTIFIER
-
-expr:            expr PLUS term
-                | expr MINUS term
-                | term
-
-term:            term MULT factor
-                | term DIV factor
-                | factor
-
-factor:         idc EXPONENT factor
-                |  idc
-
-idc:            ident
-                //| <int_const>
-                | LPAR expr RPAR
-
-//end of expressions
+type_ident:     INT_TYPE
+                | FLOAT_TYPE
+                | CHAR_TYPE
+                | VOID
+		| BOOLEAN_TYPE
 
 
 
 %%
 
+
+
+
 void yyerror(char *s) {
-	fprintf(stdout, "line %d: %s\n", yylineno,s);
+	fprintf(stdout, "line %d: %s\n", yylineno-1,s);
 }
 
 int main(void) {

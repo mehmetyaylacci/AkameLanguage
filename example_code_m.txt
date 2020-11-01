@@ -1,6 +1,18 @@
-# comment #
+output("a");
+output("b");
+input(a);
+int a = 3;
+int a,b,c;
+while(5>3){output("true");}
+for( int i = 2; i < 5 ){output("true");}
+sum(int a);
+int lt(int a, int b){
+bool c = a;
+return c;
+}
+if(a==b){output("ifstmt");} else {output("and");}
+i.toggleCamera();
+error
+#"comment"#
 
-int sum(int a, int b) {
-    int c = a + b;
-    return c;
-};
+i.toggleCamera();
