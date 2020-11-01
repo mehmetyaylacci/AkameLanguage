@@ -84,11 +84,11 @@ program:
 
 main:
     MAIN LPAR RPAR LBRACKET stmt_list RBRACKET
-    | comment_sentence 
+    | comment_sentence main
 
 stmt_list:
                 stmt
-                | stmt_list stm
+                | stmt_list stmt
 
 stmt:
                 assignment_stmt SEMICOLON
@@ -101,6 +101,7 @@ stmt:
                 | input_stmt SEMICOLON
                 | output_stmt SEMICOLON
                 | comment_sentence
+                | return_stmt SEMICOLON
 
 comment_sentence:
 	COMMENT sentence COMMENT
@@ -112,9 +113,9 @@ sentence:
 
 //statements:
 assignment_stmt:
-                ident_list ASSIGNMENT expr SEMICOLON
-                | ident_list ASSIGNMENT func_call SEMICOLON
-                | ident_list ASSIGNMENT primitive_func SEMICOLON
+                type_ident ASSIGNMENT expr SEMICOLON
+                | type_ident ASSIGNMENT func_call SEMICOLON
+                | type_ident ASSIGNMENT primitive_func SEMICOLON
 
 if_stmt:        IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
             	//| IF LPAR logic_exp RPAR LBRACKET stmt_list RBRACKET else_stmt
@@ -129,6 +130,9 @@ while_stmt:     WHILE LPAR expr RPAR stmt_list
                 | WHILE LPAR primitive_func RPAR stmt_list
 
 for_stmt:       FOR LPAR expr SEMICOLON expr SEMICOLON expr RPAR stmt_list
+
+// amb diyor??
+return_stmt:    RETURN expr SEMICOLON
 
 func_call:      ident LPAR args RPAR
 

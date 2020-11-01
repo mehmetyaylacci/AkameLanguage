@@ -1,8 +1,7 @@
 # comment #
 # comment #
 main(){
-    int sum(int a, int b) {
+    void sum(int a, int b) {
         int c = a + b;
-        return c;
     };
 }
