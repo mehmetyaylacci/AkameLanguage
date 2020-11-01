@@ -154,7 +154,7 @@ type_ident:     INT_TYPE
                 | VOID
 
 ident_list:     ident
-                | ident COMMA ident_list
+                | ident_list COMMA ident
 
 
 primitive_func: ident DOT READINC LPAR RPAR SEMICOLON
@@ -171,6 +171,27 @@ primitive_func: ident DOT READINC LPAR RPAR SEMICOLON
 
 //expressions
 
+logic_exp:
+                // 4 < 89
+                // true && false
+                // a >= b
+                INTEGER LESS INTEGER
+                |INTEGER GREATER INTEGER
+                |INTEGER LTE INTEGER
+                |INTEGER GTE INTEGER
+                |IDENTIFIER LESS IDENTIFIER
+                |IDENTIFIER GREATER IDENTIFIER
+                |IDENTIFIER LTE IDENTIFIER
+                |IDENTIFIER GTE IDENTIFIER
+                |IDENTIFIER AND IDENTIFIER
+                |IDENTIFIER OR IDENTIFIER
+                |BOOLEAN AND BOOLEAN
+                |BOOLEAN OR BOOLEAN
+                |BOOLEAN IS_EQUAL BOOLEAN
+                |BOOLEAN NOT_EQUAL BOOLEAN
+                |IDENTIFIER IS_EQUAL IDENTIFIER
+                |IDENTIFIER NOT_EQUAL IDENTIFIER
+/*
 logic_exp:      logic_exp_or
                 | logic_exp IS_EQUAL logic_exp_or
                 | logic_exp NOT_EQUAL logic_exp_or
@@ -188,12 +209,13 @@ logic_exp_and:  logic_exp_and AND logic_exp_not
 logic_exp_not:   NOT logic_exp_p | logic_exp_p
 
 logic_exp_p:     LPAR logic_exp RPAR | BOOLEAN
+*/
 
 expr:            expr PLUS term
                 | expr MINUS term
                 | term
 
-term:            term MULT term
+term:            term MULT factor
                 | term DIV factor
                 | factor
 
