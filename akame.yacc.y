@@ -84,11 +84,11 @@ program:
 
 main:
     MAIN LPAR RPAR LBRACKET stmt_list RBRACKET
+    | comment_sentence 
 
 stmt_list:
                 stmt
-                | stmt_list stmt
-
+                | stmt_list stm
 
 stmt:
                 assignment_stmt SEMICOLON
@@ -104,6 +104,7 @@ stmt:
 
 comment_sentence:
 	COMMENT sentence COMMENT
+  | comment_sentence COMMENT sentence COMMENT
 
 sentence:
 	IDENTIFIER_S sentence
